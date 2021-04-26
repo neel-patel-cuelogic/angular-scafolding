@@ -8,35 +8,82 @@
   $warn: map-get($config, warn);
   $extra-color-1: map-get($config, extra-color-1);
 
-    .table-wrapper{
-        max-height: 60vh;
-        overflow-y: auto;
-        .mat-table {       
-            width: 100%;
-            .mat-header-row{
-                @include breakpoint(below-1600){
-                    height: 46px;
-                }
-                .mat-header-cell {
-                    background-color: mat-color($extra-color-1, custom-default);
-                    font-size: fontSize(16,14);
-                    font-weight:weight(medium);
-                
-                }
-            }
-            .mat-row,.mat-footer-row{
-                @include breakpoint(below-1600){
-                    height: 40px;
-                }
-                .mat-cell, .mat-footer-cell {
-                padding-top: 8px;
-                padding-bottom: 8px; 
-                }   
-
-            }
+  .table-wrapper {
+    max-height: 60vh;
+    overflow-y: auto;
+    .mat-table {
+      width: 100%;
+      .mat-header-row {
+        @include breakpoint(below-1600) {
+          height: 46px;
         }
+        .mat-header-cell {
+          background-color: mat-color($extra-color-1, custom-default);
+          font-size: fontSize(16, 14);
+          font-weight: weight(medium);
+          padding: 8px 10px;
+          &:first-child {
+            padding-left: 20px;
+          }
+          &:last-child {
+            padding-right: 20px;
+          }
+        }
+      }
+      .mat-row {
+        @include breakpoint(below-1600) {
+          height: 40px;
+        }
+        .mat-cell,
+        .mat-footer-cell {
+          padding: 8px 10px;
+          &:first-child {
+            padding-left: 20px;
+          }
+          &:last-child {
+            padding-right: 20px;
+          }
+        }
+        .status {
+          position: relative;
+          padding-left: 16px;
+          text-transform: capitalize;
+          white-space: nowrap;
+          color: mat-color($extra-color-1, active);
+          &::before {
+            content: "";
+            height: 8px;
+            width: 8px;
+            border-radius: 16px;
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            background-color: mat-color($extra-color-1, active);
+          }
+          &.inactive {
+            color: mat-color($extra-color-1, success);
+            &::before {
+              background-color: mat-color($extra-color-1, success);
+            }
+          }
+        }
+        .actions {
+          .mat-icon {
+            margin-right: 10px;
+            @include elemWidth(25);
+            min-width: 20px;
+            cursor: pointer;
+            &:last-child {
+              margin-right: 0;
+            }
+          }
+        }
+        
+      }
     }
-
+  }
 }
 
 @mixin table-custom-theme($config-or-theme) {
