@@ -8,7 +8,7 @@
 						*ngIf="userList && userList.data.length > 0"
 						class="filter-section"
 					>
-						<div class="input-group">
+						<!-- <div class="input-group">
 							<input
 								class="form-control"
 								[(ngModel)]="filterText"
@@ -24,21 +24,19 @@
 							>
 								&times;
 							</button>
-						</div>
-						<button
-							type="button"
-							class="btn btn-primary"
-							(click)="onUserGenerate()"
-						>
-							New request
-						</button>
-						<button
-							type="button"
-							class="btn btn-primary ml-4 lockout-btn"
-							(click)="openLockoutDialog()"
-						>
-							Locked IP(s)
-						</button>
+						</div> -->
+						<mat-form-field appearance="outline" class="custom-input">
+							<mat-label>Legacy form field</mat-label>
+							<input matInput placeholder="Filter" [(ngModel)]="filterText"
+							[ngModelOptions]="{ standalone: true }"
+							(keyup)="applyFilter($event.target.value)">
+							<mat-icon matSuffix *ngIf="filterText"
+							(click)="filterText = ''; applyFilter('')" >sentiment_very_satisfied</mat-icon>
+							<mat-hint>Hint</mat-hint>
+						</mat-form-field>
+						<button mat-flat-button class="custom-button" color="primary" (click)="onUserGenerate()">
+							Primary Button
+						  </button>
 					</form>
 				</div>
 			</div>
@@ -66,7 +64,7 @@
 				No data found
 			</div>
 			<div
-				class="list-table"
+				class="table-wrapper"
 				[hidden]="
 					!userList ||
 					(userList && userList.data.length === 0) ||
@@ -75,7 +73,6 @@
 			>
 				<table
 					mat-table
-					class="mat-elevation-z8 auto-width"
 					[dataSource]="userList"
 					matSort
 				>
@@ -177,6 +174,7 @@
 					class="sticky-pagination"
 					[pageSizeOptions]="[5, 10, 15, 20]"
 					[pageSize]="10"
+					sticky="true"
 					showFirstLastButtons
 				>
 				</mat-paginator>

@@ -3,12 +3,13 @@
 @import "./components/button.scss";
 @import "./components/input.scss";
 @import "./components/select.scss";
+@import "./components/table.scss";
 @mixin custom-component-theming($theme) {
   @include header-theme($theme);
   @include nav-bar-theme($theme);
   @include button-custom-theme($theme);
   @include input-custom-theme($theme);
-  @include select-custom-theme($theme);
+  @include table-custom-theme($theme);
   /** add any other theming mixins from custom components here. */
 }
 

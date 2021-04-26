@@ -8,7 +8,12 @@
 @function weight($weight-name){
     @return map-get($font-weights, $weight-name);
 }
-
+$font-weights: (
+  "light": 300,
+  "regular": 400,
+  "medium": 500,
+  "bold": 700,
+);
 // ======>> Mixins <<======
 @mixin transitionTime($time){
     transition:all $time ease-in-out;    

@@ -1,0 +1,44 @@
+@import "~@angular/material/theming";
+@import "../utils/mixins";
+
+@mixin mat-table-custom-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+  $extra-color-1: map-get($config, extra-color-1);
+
+    .table-wrapper{
+        height: 60vh;
+        overflow-y: auto;
+        .mat-table {       
+        width: 100%;
+        .mat-header-row{
+            @include breakpoint(below-1600){
+                height: 46px;
+            }
+            .mat-header-cell {
+                background-color: mat-color($extra-color-1, custom-default);
+                font-size: fontSize(16,14);
+                font-weight:weight(medium);
+             
+            }
+        }
+        .mat-row,.mat-footer-row{
+            @include breakpoint(below-1600){
+                height: 40px;
+            }
+            .mat-cell, .mat-footer-cell {
+               padding-top: 8px;
+               padding-bottom: 8px; 
+            }   
+
+        }
+    }
+    }
+
+}
+
+@mixin table-custom-theme($config-or-theme) {
+  @include mat-table-custom-color($config-or-theme);
+}
