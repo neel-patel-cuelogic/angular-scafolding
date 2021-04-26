@@ -22,6 +22,7 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatBadgeModule } from "@angular/material/badge";
 import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatNotificationService } from "./services/mat-notification.service";
 import { MatPaginatorIntlCustomService } from "./services/mat-paginator-intl-custom.service";
 
 import {
@@ -89,6 +90,7 @@ import icons from "./icons";
   ],
   providers: [
     { provide: MatPaginatorIntl, useClass: MatPaginatorIntlCustomService },
+    MatNotificationService,
   ],
 })
 export class MaterialModule {

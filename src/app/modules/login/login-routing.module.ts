@@ -1,12 +1,13 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { UserListComponent } from "./pages/user-list/user-list.component";
+import { LoginComponent } from "./pages/login/login.component";
 
 const routes: Routes = [
-  { path: "", component: UserListComponent },
+  { path: "", component: LoginComponent },
+  { path: "admin", component: LoginComponent },
   {
     path: "**",
-    redirectTo: "/user-management",
+    redirectTo: "/login",
     pathMatch: "full",
   },
 ];
@@ -15,4 +16,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class UserManagementRoutingModule {}
+export class LoginRoutingModule {}
