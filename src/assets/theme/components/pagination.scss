@@ -1,0 +1,25 @@
+@import "~@angular/material/theming";
+@import "../utils/mixins";
+
+@mixin mat-pagination-custom-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+  $extra-color-1: map-get($config, extra-color-1);
+
+    .custom-pagination{
+      background-color: map-get($extra-color-1, bgColor);
+      button{
+       outline: none;  
+    }
+    }
+    .sticky-pagination{
+        bottom: 0;
+        position: sticky;
+    }
+}
+
+@mixin pagination-custom-theme($config-or-theme) {
+  @include mat-pagination-custom-color($config-or-theme);
+}

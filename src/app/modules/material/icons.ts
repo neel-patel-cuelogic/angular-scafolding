@@ -6,6 +6,10 @@ const icons = [
   {
     icon_name: "down-arrow",
     icon_path: "assets/images/icons/down-arrow.svg",
+  },
+  {
+    icon_name: "search",
+    icon_path: "assets/images/icons/search.svg",
   }
 ];
 

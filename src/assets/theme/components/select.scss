@@ -1,7 +1,7 @@
 @import "~@angular/material/theming";
 @import "../utils/mixins";
 
-@mixin mat-select-custom-color($config-or-theme) {
+@mixin mat-textarea-custom-color($config-or-theme) {
   $config: mat-get-color-config($config-or-theme);
   $primary: map-get($config, primary);
   $accent: map-get($config, accent);
@@ -10,36 +10,80 @@
   $background: map-get($config, background);
   $foreground: map-get($config, foreground);
 
-  @include mat-select-color($config-or-theme);
+  @include mat-input-color($config-or-theme);
 
-  .custom-select {
+  .custom-input {
     .mat-input-element {
-      height: 100%;
+      height: calc(100% - 4px);
+       margin-top: 2px;
+     
+    }
+    input:-webkit-autofill {
+        background-color:transparent !important;
     }
     &.mat-form-field-appearance-outline {
       .mat-form-field-infix {
         padding: 0;
         border-top: 0;
-        min-height:70px;
-        @include elemHeight(90);
+        min-height: 36px;
+        @include elemHeight(46);
       }
       .mat-form-field-outline{
         top: 0;
       }
+      .mat-form-field-suffix{
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        text-align: center;
+      }
       .mat-form-field-wrapper {
-        padding-top: 30px;
+        padding-top: 20px;
       }  
+      .mat-form-field-label-wrapper{
+        top: -20px;
+        padding-top: 20px;
+        display: flex;
+        align-items: center;
+        .mat-form-field-label{
+          margin: 0;
+          top: auto;
+        }
+      }
       &.mat-form-field-should-float {
         .mat-form-field-outline-gap{
           border-top-color: currentColor;   
         }
+        .mat-form-field-label{
+          top: 20px;
+          transform: translateY(-20px) scale(0.90);
+        }
+      }
+      .mat-select{
+        height: 100%;
+        .mat-select-trigger{
+          height: 100%;
+          .mat-select-value{
+            vertical-align: middle;
+          }
+          .mat-select-arrow-wrapper{
+            vertical-align: middle;
+            transform:none;
+            .mat-select-arrow {
+              $icon: url('/assets/images/icons/down-arrow.svg');
+              content: $icon;
+              height: 13px;
+              width: 13px;
+              border:0;
+            }
+          }
+        }
       }
     }
   }
-  
 
 }
 
-@mixin select-custom-theme($config-or-theme) {
-  @include mat-select-custom-color($config-or-theme);
+@mixin input-custom-theme($config-or-theme) {
+  @include mat-input-custom-color($config-or-theme);
 }

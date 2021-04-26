@@ -2,14 +2,16 @@
 @import "../../app/modules/core/components/left-nav-bar/left-nav-bar.component.scss";
 @import "./components/button.scss";
 @import "./components/input.scss";
-@import "./components/select.scss";
+// @import "./components/select.scss";
 @import "./components/table.scss";
+@import "./components/pagination.scss";
 @mixin custom-component-theming($theme) {
   @include header-theme($theme);
   @include nav-bar-theme($theme);
   @include button-custom-theme($theme);
   @include input-custom-theme($theme);
   @include table-custom-theme($theme);
+  @include pagination-custom-theme($theme);
   /** add any other theming mixins from custom components here. */
 }
 

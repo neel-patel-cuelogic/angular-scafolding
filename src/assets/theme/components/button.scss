@@ -11,28 +11,35 @@
   $accent: map-get($config, accent);
   $warn: map-get($config, warn);
   $extra-color-1: map-get($config, extra-color-1);
-  
-  $background: map-get($config, background);
-  $foreground: map-get($config, foreground);
 
-  .custom-button {
-    &.mat-primary {
-      background-color: mat-color($primary);
-      color: mat-color($primary, '900-contrast');
+
+  button{
+    outline: none;
+    .mat-icon{
+      line-height: 1;
+      margin-top: -2px;
     }
-  }
-  button + button{
-    margin-left: 10px
-  }
-  .link{
-    color: mat-color($primary);
-    .mat-button-focus-overlay{
-      display: none;
+    & + button{
+      margin-left: 10px
     }
-  }
-  .default-button{
-    &.mat-primary {
-      background-color: mat-color($extra-color-1, custom-default);
+    &.custom-button {
+      @include elemHeight(46);
+      min-height: 36px;
+      &.mat-primary {
+        background-color: mat-color($primary);
+        color: mat-color($primary, '900-contrast');
+      }
+    }
+    &.link{
+      color: mat-color($primary);
+      .mat-button-focus-overlay{
+        display: none;
+      }
+    }
+    &.default-button{
+      &.mat-primary {
+        background-color: mat-color($extra-color-1, custom-default);
+      }
     }
   }
 }

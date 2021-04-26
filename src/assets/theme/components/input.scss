@@ -14,7 +14,12 @@
 
   .custom-input {
     .mat-input-element {
-      height: 100%;
+      height: calc(100% - 4px);
+       margin-top: 2px;
+     
+    }
+    input:-webkit-autofill {
+        background-color:transparent !important;
     }
     &.mat-form-field-appearance-outline {
       .mat-form-field-infix {
@@ -35,9 +40,23 @@
       .mat-form-field-wrapper {
         padding-top: 20px;
       }  
+      .mat-form-field-label-wrapper{
+        top: -20px;
+        padding-top: 20px;
+        display: flex;
+        align-items: center;
+        .mat-form-field-label{
+          margin: 0;
+          top: auto;
+        }
+      }
       &.mat-form-field-should-float {
         .mat-form-field-outline-gap{
           border-top-color: currentColor;   
+        }
+        .mat-form-field-label{
+          top: 20px;
+          transform: translateY(-20px) scale(0.90);
         }
       }
       .mat-select{
