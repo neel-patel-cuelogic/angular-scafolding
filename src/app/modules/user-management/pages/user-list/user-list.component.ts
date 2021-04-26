@@ -3,7 +3,6 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { Router } from "@angular/router";
@@ -40,9 +39,9 @@ export class UserListComponent implements OnInit {
 
   constructor(
     private _router: Router,
-    private dialog: MatDialog,
-    private _snackBar: MatSnackBar // private _authService: AuthService, // private _adminService: AdminService
-  ) {}
+    private dialog: MatDialog
+  ) // private _notification: MatNotificationService
+  {}
 
   ngOnInit() {
     this.getUsersList();

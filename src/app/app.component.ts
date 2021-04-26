@@ -10,6 +10,7 @@ import {
 import { NavigationEnd, NavigationStart, Router } from "@angular/router";
 import { AuthService } from "./modules/core/services/auth.service";
 import { CookieService } from "./modules/core/services/cookie-wrapper.service";
+import { MatNotificationService } from "./modules/material/services/mat-notification.service";
 import { SharedService } from "./modules/shared/services/shared.service";
 
 @Component({
@@ -38,6 +39,7 @@ export class AppComponent implements OnInit {
     private _sharedService: SharedService,
     private _authService: AuthService,
     private _cookieService: CookieService,
+    private _notification: MatNotificationService,
     @Inject(DOCUMENT) private document: Document
   ) {
     this._renderer.addClass(document.body, this.theme);
@@ -84,12 +86,17 @@ export class AppComponent implements OnInit {
           this._renderer.removeClass(document.body, $e.data);
           break;
         case "toastMessage":
-          // this._snackBar.open($e.data.message, "", {
-          //   duration: $e.data.duration,
-          //   panelClass: $e.data.panelClass,
-          //   verticalPosition: $e.data.verticalPosition,
-          //   horizontalPosition: $e.data.horizontalPosition,
-          // });
+          switch ($e.data.panelClass) {
+            case "success":
+              this._notification.success($e.data.message);
+              break;
+            case "error":
+              this._notification.error($e.data.message);
+              break;
+            default:
+              this._notification.default($e.data.message);
+              break;
+          }
           break;
       }
     });
