@@ -1,0 +1,12 @@
+@import "src/assets/css/variables";
+@import "src/assets/css/mixins";
+
+body {
+  font-family: $fontRegular;
+}
+a {
+  @include transitionTime(200ms);
+}
+.h-100vh {
+  height: 100vh;
+}

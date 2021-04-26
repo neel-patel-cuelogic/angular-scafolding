@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
+
+$fontRegular: "Roboto", sans-serif;
+
+$font-weights: (
+  "light": 300,
+  "regular": 400,
+  "medium": 500,
+  "bold": 700,
+);
+
+$primary: #408cff;
+$btnSecondary: #2a2424;
+$textColor: #444444;
+$borderColor: #ebebeb;
+$inputBorder: #cdd2d3;
+$tableBg: #e6e6e6;
+$grayBg: #f4f4f4;
+$secondaryBg: #f1f6ff;
+
+$black: #000000;
+$white: #ffffff;
+
+$extra: #d11313;
+$processed: #14af00;
+$processing: #dd782d;
+
+$icomoon-font-family: "CI-Analytics" !default;
+$icomoon-font-path: "assets/fonts" !default;
+
+$aa-create: "\e101";
+$aa-zoom-minus: "\e102";
+$aa-zoom-plus: "\e103";
+$aa-reset: "\e104";
+$aa-search: "\e105";
+$aa-download: "\e106";
+$aa-expand: "\e107";
+$aa-double-arrow: "\e108";
+$aa-processing: "\e109";
+$aa-right: "\e110";
+$aa-upload: "\e111";
+$aa-back: "\e112";
+$aa-logout: "\e113";
+$aa-help: "\e114";
+$aa-profile: "\e115";
+$aa-circle: "\e116";
+$aa-dashboard: "\e117";
+$aa-chat: "\e118";
+$aa-nodes: "\e119";
+$aa-cloud-search: "\e120";
+$aa-graph: "\e121";
+$aa-eye: "\e122";
+$aa-caret-down: "\e123";
+$aa-caret-left: "\e124";
+$aa-caret-right: "\e125";
+$aa-caret-up: "\e126";

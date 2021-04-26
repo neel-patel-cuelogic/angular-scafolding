@@ -1,0 +1,169 @@
+@import "variables";
+
+@font-face {
+    font-family:'#{$icomoon-font-family}';
+    src:url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?dlqsm7');
+    src:url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?dlqsm7#iefix') format('embedded-opentype'),
+        url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?dlqsm7') format('truetype'),
+        url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?dlqsm7') format('woff'),
+        url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?dlqsm7##{$icomoon-font-family}') format('svg');
+    font-weight:normal;
+    font-style:normal;
+    font-display:block;
+}
+
+[class^="aa-"], [class*=" aa-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family:'#{$icomoon-font-family}' !important;
+    font-style:normal;
+    font-weight:normal;
+    font-variant:normal;
+    text-transform:none;
+    line-height:1;
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+}
+
+@font-face {
+    font-family: '#{$icomoon-font-family}';
+    src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?wnf6bk');
+    src:  url('#{$icomoon-font-path}/#{$icomoon-font-family}.eot?wnf6bk#iefix') format('embedded-opentype'),
+      url('#{$icomoon-font-path}/#{$icomoon-font-family}.ttf?wnf6bk') format('truetype'),
+      url('#{$icomoon-font-path}/#{$icomoon-font-family}.woff?wnf6bk') format('woff'),
+      url('#{$icomoon-font-path}/#{$icomoon-font-family}.svg?wnf6bk##{$icomoon-font-family}') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+  }
+  
+  .aa-create {
+    &:before {
+      content: $aa-create; 
+    }
+  }
+  .aa-zoom-minus {
+    &:before {
+      content: $aa-zoom-minus; 
+    }
+  }
+  .aa-zoom-plus {
+    &:before {
+      content: $aa-zoom-plus; 
+    }
+  }
+  .aa-reset {
+    &:before {
+      content: $aa-reset; 
+    }
+  }
+  .aa-search {
+    &:before {
+      content: $aa-search; 
+    }
+  }
+  .aa-download {
+    &:before {
+      content: $aa-download; 
+    }
+  }
+  .aa-expand {
+    &:before {
+      content: $aa-expand; 
+    }
+  }
+  .aa-double-arrow {
+    &:before {
+      content: $aa-double-arrow; 
+    }
+  }
+  .aa-processing {
+    &:before {
+      content: $aa-processing; 
+    }
+  }
+  .aa-right {
+    &:before {
+      content: $aa-right; 
+    }
+  }
+  .aa-upload {
+    &:before {
+      content: $aa-upload; 
+    }
+  }
+  .aa-back {
+    &:before {
+      content: $aa-back; 
+    }
+  }
+  .aa-logout {
+    &:before {
+      content: $aa-logout; 
+    }
+  }
+  .aa-help {
+    &:before {
+      content: $aa-help; 
+    }
+  }
+  .aa-profile {
+    &:before {
+      content: $aa-profile; 
+    }
+  }
+  .aa-circle {
+    &:before {
+      content: $aa-circle; 
+    }
+  }
+  .aa-dashboard {
+    &:before {
+      content: $aa-dashboard; 
+    }
+  }
+  .aa-chat {
+    &:before {
+      content: $aa-chat; 
+    }
+  }
+  .aa-nodes {
+    &:before {
+      content: $aa-nodes; 
+    }
+  }
+  .aa-cloud-search {
+    &:before {
+      content: $aa-cloud-search; 
+    }
+  }
+  .aa-graph {
+    &:before {
+      content: $aa-graph; 
+    }
+  }
+  .aa-eye {
+    &:before {
+      content: $aa-eye; 
+    }
+  }
+  .aa-caret-down {
+    &:before {
+      content: $aa-caret-down; 
+    }
+  }
+  .aa-caret-left {
+    &:before {
+      content: $aa-caret-left; 
+    }
+  }
+  .aa-caret-right {
+    &:before {
+      content: $aa-caret-right; 
+    }
+  }
+  .aa-caret-up {
+    &:before {
+      content: $aa-caret-up; 
+    }
+  }

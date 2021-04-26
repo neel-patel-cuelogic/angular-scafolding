@@ -1,0 +1,14 @@
+@import "../../app/modules/core/components/header/header.component.scss";
+@import "../../app/modules/core/components/left-nav-bar/left-nav-bar.component.scss";
+@import "./components/button.scss";
+@import "./components/input.scss";
+@import "./components/select.scss";
+@mixin custom-component-theming($theme) {
+  @include header-theme($theme);
+  @include nav-bar-theme($theme);
+  @include button-custom-theme($theme);
+  @include input-custom-theme($theme);
+  @include select-custom-theme($theme);
+  /** add any other theming mixins from custom components here. */
+}
+

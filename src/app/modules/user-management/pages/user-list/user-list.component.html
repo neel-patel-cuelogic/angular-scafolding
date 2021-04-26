@@ -1,0 +1,186 @@
+<section class="clearfix w-100">
+	<div class="admin-container">
+		<div class="user-list">
+			<div class="title-section pt-4">
+				<h4 class="m-0">User List</h4>
+				<div class="d-flex align-items-center">
+					<form
+						*ngIf="userList && userList.data.length > 0"
+						class="filter-section"
+					>
+						<div class="input-group">
+							<input
+								class="form-control"
+								[(ngModel)]="filterText"
+								[ngModelOptions]="{ standalone: true }"
+								(keyup)="applyFilter($event.target.value)"
+								placeholder="Filter"
+							/>
+							<button
+								class="clear-search"
+								type="button"
+								*ngIf="filterText"
+								(click)="filterText = ''; applyFilter('')"
+							>
+								&times;
+							</button>
+						</div>
+						<button
+							type="button"
+							class="btn btn-primary"
+							(click)="onUserGenerate()"
+						>
+							New request
+						</button>
+						<button
+							type="button"
+							class="btn btn-primary ml-4 lockout-btn"
+							(click)="openLockoutDialog()"
+						>
+							Locked IP(s)
+						</button>
+					</form>
+				</div>
+			</div>
+			<br />
+			<div class="table-loading" *ngIf="!userList">
+				<div class="animated-background lg-width widget-loader xs"></div>
+				<div
+					class="animated-background lg-width widget-loader xs light-bg delay"
+				></div>
+				<div class="animated-background lg-width widget-loader xs delay"></div>
+				<div
+					class="animated-background lg-width widget-loader xs light-bg delay"
+				></div>
+			</div>
+			<div
+				class="no-grid-data d-flex align-items-center justify-content-center"
+				*ngIf="displayNoRecords"
+				style="height: 200px"
+			></div>
+			<div
+				class="no-data d-flex align-items-center justify-content-center"
+				*ngIf="userList && userList.data.length === 0"
+				style="height: 200px"
+			>
+				No data found
+			</div>
+			<div
+				class="list-table"
+				[hidden]="
+					!userList ||
+					(userList && userList.data.length === 0) ||
+					displayNoRecords
+				"
+			>
+				<table
+					mat-table
+					class="mat-elevation-z8 auto-width"
+					[dataSource]="userList"
+					matSort
+				>
+					<ng-container matColumnDef="clientName">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header>
+							Client Name
+						</th>
+						<td mat-cell *matCellDef="let row">{{ row.clientName }}</td>
+					</ng-container>
+
+					<ng-container matColumnDef="requesterName">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header>
+							ZS Requestor
+						</th>
+						<td mat-cell *matCellDef="let row">{{ row.requesterName }}</td>
+					</ng-container>
+
+					<ng-container matColumnDef="accessCode">
+						<th mat-header-cell *matHeaderCellDef>Access Code</th>
+						<td mat-cell *matCellDef="let row">{{ row.accessCode }}</td>
+					</ng-container>
+
+					<ng-container matColumnDef="sessionStartDate">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header>
+							Active Period
+						</th>
+						<td mat-cell *matCellDef="let row">
+							<span class="d-block whitespace-nowrap"
+								>{{ row.sessionStartDate | date: "dd MMM yyyy" }} -
+								{{ row.sessionEndDate | date: "dd MMM yyyy" }}</span
+							>
+						</td>
+					</ng-container>
+
+					<ng-container matColumnDef="lastLoggedIn">
+						<th mat-header-cell *matHeaderCellDef>Last Logged In</th>
+						<td mat-cell *matCellDef="let row">
+							<span class="d-block pt-1">{{
+								row.lastLoggedIn
+									? (row.lastLoggedIn | date: "dd MMM yyyy , HH:mm:ss")
+									: "Not yet accessed"
+							}}</span>
+							<span class="d-block pb-1">{{
+								row.userMetaInfo?.ipAddress
+									? "IP:" + row.userMetaInfo?.ipAddress
+									: ""
+							}}</span>
+						</td>
+					</ng-container>
+
+					<ng-container matColumnDef="status">
+						<th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+						<td mat-cell *matCellDef="let row" color="green">
+							<span
+								class="user-status"
+								[ngClass]="
+									row.status == UserStatus.ACTIVE ? 'active' : 'inactive'
+								"
+								>{{ row.status }}</span
+							>
+						</td>
+					</ng-container>
+
+					<ng-container matColumnDef="more">
+						<th mat-header-cell *matHeaderCellDef>Actions</th>
+						<td mat-cell *matCellDef="let row">
+							<div class="actions justify-content-between">
+								<span
+									class="edit"
+									title="Edit"
+									(click)="onUserEditClick(row)"
+								></span>
+								<span
+									class="logs"
+									[ngClass]="{ disable: !row.lastLoggedIn }"
+									title="Logs"
+									(click)="row.lastLoggedIn && openHistoryDialog(row)"
+								></span>
+								<span
+									class="info"
+									title="View"
+									(click)="onUserViewClick(row)"
+								></span>
+							</div>
+						</td>
+					</ng-container>
+
+					<tr
+						mat-header-row
+						*matHeaderRowDef="displayedColumns; sticky: true"
+					></tr>
+					<tr
+						mat-row
+						*matRowDef="let row; columns: displayedColumns"
+						[ngClass]="{ highlight: selectedRowIndex == row.accessCode }"
+					></tr>
+				</table>
+				<mat-paginator
+					class="sticky-pagination"
+					[pageSizeOptions]="[5, 10, 15, 20]"
+					[pageSize]="10"
+					showFirstLastButtons
+				>
+				</mat-paginator>
+			</div>
+		</div>
+	</div>
+</section>

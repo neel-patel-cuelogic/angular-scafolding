@@ -1,0 +1,45 @@
+@import "~@angular/material/theming";
+@import "../utils/mixins";
+
+@mixin mat-select-custom-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+
+  $background: map-get($config, background);
+  $foreground: map-get($config, foreground);
+
+  @include mat-select-color($config-or-theme);
+
+  .custom-select {
+    .mat-input-element {
+      height: 100%;
+    }
+    &.mat-form-field-appearance-outline {
+      .mat-form-field-infix {
+        padding: 0;
+        border-top: 0;
+        min-height:70px;
+        @include elemHeight(90);
+      }
+      .mat-form-field-outline{
+        top: 0;
+      }
+      .mat-form-field-wrapper {
+        padding-top: 30px;
+      }  
+      &.mat-form-field-should-float {
+        .mat-form-field-outline-gap{
+          border-top-color: currentColor;   
+        }
+      }
+    }
+  }
+  
+
+}
+
+@mixin select-custom-theme($config-or-theme) {
+  @include mat-select-custom-color($config-or-theme);
+}

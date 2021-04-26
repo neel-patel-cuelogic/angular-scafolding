@@ -1,0 +1,9 @@
+@import "~@angular/material/theming";
+
+  @mixin application-varibales($config-or-theme){     
+    $config: mat-get-color-config($config-or-theme);
+    $primary: map-get($config, primary);
+    $accent: map-get($config, accent);
+    $warn: map-get($config, warn);
+    $extra-color-1: map-get($config, extra-color-1);
+  }

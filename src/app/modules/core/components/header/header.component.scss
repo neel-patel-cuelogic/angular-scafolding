@@ -1,0 +1,200 @@
+// @import "src/assets/css/variables";
+// @import "src/assets/css/mixins";
+
+// header {
+// //   display: none;
+//   width: 100%;
+//   background-color: $primary;
+//   position: fixed;
+//   top: 0;
+//   z-index: 1030;
+//   box-shadow: 0 3px 6px rgba($color: $black, $alpha: 0.15);
+//   @at-root .not-logedin #{&} {
+//     background-color: transparent;
+//     box-shadow: none;
+//   }
+//   .login & {
+//     box-shadow: none;
+//   }
+//   nav.navbar {
+//     height: 60px;
+//     padding: 0 30px;
+//     align-items: center;
+//     transition: all ease-in-out 200ms;
+//     @include transitionTime(200ms);
+//     .navbar-nav .nav-item {
+//       padding-left: 20px;
+//       a {
+//         padding: 0 10px;
+//         font-size: 20px;
+//         font-weight: weight(medium);
+//         transition: all 30ms ease-in-out;
+//         position: relative;
+//         cursor: pointer;
+//         .phone,
+//         .email {
+//           font-size: 0;
+//         }
+//       }
+//     }
+//     .header-menu {
+//       li a {
+//         font-size: 20px;
+//         color: $white;
+//         text-decoration: none;
+//         @at-root .not-logedin #{&} {
+//           color: #191627;
+//         }
+//         &.menu-icon {
+//           width: 30px;
+//           height: 16px;
+//           display: inline-block;
+//           vertical-align: middle;
+//           position: relative;
+//           z-index: 2;
+//           border-top: $textColor 2px solid;
+//           border-bottom: $textColor 2px solid;
+//           @include transitionTime(200ms);
+//           > span {
+//             height: 2px;
+//             width: 30px;
+//             background-color: $textColor;
+//             position: absolute;
+//             top: 5px;
+//             @include transitionTime(200ms);
+//           }
+//         }
+//       }
+//       &.open,
+//       &.open-login {
+//         li a.menu-icon {
+//           border-color: transparent;
+//           > span {
+//             transform: rotate(45deg);
+//             &:last-child {
+//               transform: rotate(-45deg);
+//             }
+//           }
+//         }
+//       }
+//       &.open-login li:first-child {
+//         visibility: hidden;
+//       }
+//       &.open {
+//         ~ .main-nav-sidebar {
+//           right: 0px;
+//         }
+//         ~ .sidebar-overlay {
+//           display: block;
+//           z-index: 0;
+//         }
+//       }
+//     }
+//   }
+//   .navbar-brand {
+//     max-width: 82px;
+//     height: 60px;
+//     padding: 0;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     text-align: center;
+//     position: absolute;
+//     top: 0;
+//     body.inner-page-wrapper & {
+//       margin-top: 5px;
+//     }
+//     .logo-wrapper {
+//       display: flex;
+//       align-items: center;
+//       justify-content: center;
+//       @at-root .not-logedin #{&} {
+//         display: none;
+//       }
+//     }
+//     &.overlay-active {
+//       z-index: -2 !important;
+//     }
+//     img {
+//       max-width: 100%;
+//       max-height: 48px;
+//       @include transitionTime(200ms);
+//     }
+//   }
+//   .navbar-expand-md .navbar-collapse {
+//     justify-content: flex-end;
+//   }
+// }
+// .main-nav-sidebar {
+//   width: 370px;
+//   height: 100vh;
+//   padding: 135px 15px 35px;
+//   position: fixed;
+//   top: 0;
+//   right: -390px;
+//   z-index: 1;
+//   background-color: $extra;
+//   box-shadow: 0px 0px 22px 10px rgba($color: $black, $alpha: 0.35);
+//   @include transitionTime(200ms);
+//   .nav.flex-column li {
+//     margin-bottom: 24px;
+//     a.nav-link {
+//       padding: 0 20px;
+//       font-size: 20px;
+//       color: $textColor;
+//       text-decoration: none;
+//       position: relative;
+//       &.active:before {
+//         content: "";
+//         width: 4px;
+//         background-color: $extra;
+//         position: absolute;
+//         left: 0;
+//         top: 0;
+//         bottom: 0;
+//       }
+//     }
+//   }
+// }
+
+@mixin header-theme($theme) {
+  // Extract the palettes you need from the theme definition.
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $extra-color-1: map-get($theme, extra-color-1);
+
+  .header {
+    width: 100%;
+    background-color: mat-color($extra-color-1, custom-default);
+    position: fixed;
+    top: 0;
+    height: 60px;
+    color: mat-color($primary, default-contrast);
+    z-index: 1030;
+    // box-shadow: 0 3px 6px rgba($color: $black, $alpha: 0.15);
+    .inner-header {
+      height: 60px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      .container-fluid {
+        padding: 0 30px;
+      }
+    }
+    .inner-logo {
+      max-width: 55px;
+      text-align: center;
+      height: 100%;
+      padding-top: 7px;
+      a {
+        max-width: 38px;
+      }
+      span {
+        line-height: 1;
+        color: $white;
+      }
+    }
+  }
+}

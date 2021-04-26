@@ -1,0 +1,71 @@
+@font-face{
+    font-family:'DINProLight';
+    src:url('../fonts/dinpro-light-webfont.eot');
+    src:url('../fonts/dinpro-light-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/dinpro-light-webfont.woff2') format('woff2'),
+        url('../fonts/dinpro-light-webfont.woff') format('woff'),
+        url('../fonts/dinpro-light-webfont.ttf') format('truetype'),
+        url('../fonts/dinpro-light-webfont.svg#DINProLight') format('svg');
+    font-weight:normal;
+    font-style:normal;
+}
+
+@font-face{
+    font-family:'DINProRegular';
+    src:url('../fonts/dinpro-regular-webfont.eot');
+    src:url('../fonts/dinpro-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/dinpro-regular-webfont.woff2') format('woff2'),
+        url('../fonts/dinpro-regular-webfont.woff') format('woff'),
+        url('../fonts/dinpro-regular-webfont.ttf') format('truetype'),
+        url('../fonts/dinpro-regular-webfont.svg#DINProRegular') format('svg');
+    font-weight:normal;
+    font-style:normal;
+}
+
+@font-face{
+    font-family:'DINProMedium';
+    src:url('../fonts/dinpro-medium-webfont.eot');
+    src:url('../fonts/dinpro-medium-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/dinpro-medium-webfont.woff2') format('woff2'),
+        url('../fonts/dinpro-medium-webfont.woff') format('woff'),
+        url('../fonts/dinpro-medium-webfont.ttf') format('truetype'),
+        url('../fonts/dinpro-medium-webfont.svg#DINProMedium') format('svg');
+    font-weight:normal;
+    font-style:normal;
+}
+
+@font-face{
+    font-family:'DINProBold';
+    src:url('../fonts/dinpro-bold-webfont.eot');
+    src:url('../fonts/dinpro-bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/dinpro-bold-webfont.woff2') format('woff2'),
+        url('../fonts/dinpro-bold-webfont.woff') format('woff'),
+        url('../fonts/dinpro-bold-webfont.ttf') format('truetype'),
+        url('../fonts/dinpro-bold-webfont.svg#DINProBold') format('svg');
+    font-weight:normal;
+    font-style:normal;
+}
+
+/* @font-face{
+    font-family:'DINProBlack';
+    src:url('../fonts/dinpro-black-webfont.eot');
+    src:url('../fonts/dinpro-black-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/dinpro-black-webfont.woff2') format('woff2'),
+        url('../fonts/dinpro-black-webfont.woff') format('woff'),
+        url('../fonts/dinpro-black-webfont.ttf') format('truetype'),
+        url('../fonts/dinpro-black-webfont.svg#DINProBlack') format('svg');
+    font-weight:normal;
+    font-style:normal;
+} */
+
+@font-face {
+    font-family:'D-DINCondensed';
+    src:url('../fonts/D-DINCondensed.eot?#iefix') format('embedded-opentype'), 
+        url('../fonts/D-DINCondensed.otf')  format('opentype'),
+        url('../fonts/D-DINCondensed.woff') format('woff'),
+        url('../fonts/D-DINCondensed.ttf')  format('truetype'),
+        url('../fonts/D-DINCondensed.svg#D-DINCondensed') format('svg');
+    font-weight:normal;
+    font-style:normal;
+  }
+  

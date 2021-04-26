@@ -1,0 +1,42 @@
+@import "~@angular/material/theming";
+@import "../utils/mixins";
+// @import "../utils/varibales";
+
+@mixin mat-button-custom-color($config-or-theme) {
+  
+  // @include application-varibales($config-or-theme);
+  @include mat-button-color($config-or-theme);
+  $config: mat-get-color-config($config-or-theme);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+  $extra-color-1: map-get($config, extra-color-1);
+  
+  $background: map-get($config, background);
+  $foreground: map-get($config, foreground);
+
+  .custom-button {
+    &.mat-primary {
+      background-color: mat-color($primary);
+      color: mat-color($primary, '900-contrast');
+    }
+  }
+  button + button{
+    margin-left: 10px
+  }
+  .link{
+    color: mat-color($primary);
+    .mat-button-focus-overlay{
+      display: none;
+    }
+  }
+  .default-button{
+    &.mat-primary {
+      background-color: mat-color($extra-color-1, custom-default);
+    }
+  }
+}
+
+@mixin button-custom-theme($config-or-theme) {
+  @include mat-button-custom-color($config-or-theme);
+}
