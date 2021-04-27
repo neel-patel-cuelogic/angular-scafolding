@@ -7,6 +7,8 @@ import { Router } from "@angular/router";
 
 import { map } from "rxjs/operators";
 import { UserStatus } from "src/app/modules/shared/enum/enum";
+import { HistoryDialogBoxComponent } from "../../components/history-dialog-box/history-dialog-box.component";
+import { ViewUserDialogBoxComponent } from "../../components/view-user-dialog-box/view-user-dialog-box.component";
 import { User } from "../../model/user";
 import { UserManagementService } from "../../services/user-management.service";
 
@@ -50,13 +52,13 @@ export class UserListComponent implements OnInit {
           val.data.map((v) => this._userManagementService.parseUserObj(v, true))
         )
       )
-      .subscribe((list) => this.getUsersList(list));
+      .subscribe((list) => {
+        this.getUsersList(list);
+        this.applyFilter(this.filterText);
+      });
   }
 
-  private getUsersList(userList) {
-    const res = { data: null };
-    res.data = [];
-
+  private getUsersList(userList: User[]) {
     this.dataSource = new MatTableDataSource(userList);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.pageinator;
@@ -109,12 +111,19 @@ export class UserListComponent implements OnInit {
         data.requesterName.toLowerCase().includes(filter)
       );
     };
-    this.applyFilter(this.filterText);
   }
 
   public applyFilter(filterValue: string) {
     this.filterText = filterValue.trim();
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  public onUserGenerate() {
+    this.openDialog();
+  }
+
+  public onUserEditClick(user) {
+    this.openDialog(true, user);
   }
 
   private openDialog(
@@ -146,41 +155,32 @@ export class UserListComponent implements OnInit {
     // });
   }
 
-  openHistoryDialog(user) {
-    // const dialogRef = this.dialog.open(HistoryDialogBoxComponent, {
-    //   width: '500px',
-    //   height: '500px',
-    //   data: user.userId
-    // });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   this.highlightSelectedRecord(user);
-    // });
+  public openHistoryDialog(user) {
+    this._userManagementService
+      .getUserHistory(user.userId)
+      .pipe(map((val: any) => val.data))
+      .subscribe((list: any) => {
+        const dialogRef = this.dialog.open(HistoryDialogBoxComponent, {
+          width: "500px",
+          height: "500px",
+          data: list,
+        });
+        dialogRef.afterClosed().subscribe((result) => {
+          this.highlightSelectedRecord(user);
+        });
+      });
   }
 
-  openLockoutDialog() {
-    // this.dialog.open(LockoutDialogBoxComponent, {
-    //   width: '800px',
-    // });
+  public onUserViewClick(user) {
+    const dialogRef = this.dialog.open(ViewUserDialogBoxComponent, {
+      data: user,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      this.highlightSelectedRecord(user);
+    });
   }
 
-  onUserGenerate() {
-    this.openDialog();
-  }
-
-  onUserEditClick(user) {
-    this.openDialog(true, user);
-  }
-
-  onUserViewClick(user) {
-    // const dialogRef = this.dialog.open(ViewUserDialogBoxComponent, {
-    //   data: user
-    // });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   this.highlightSelectedRecord(user);
-    // });
-  }
-
-  highlightSelectedRecord(user) {
+  public highlightSelectedRecord(user) {
     this.selectedRowIndex = user.accessCode;
     setTimeout(() => {
       this.selectedRowIndex = -1;

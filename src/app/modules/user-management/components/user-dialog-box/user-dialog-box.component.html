@@ -1,0 +1,203 @@
+<div class="mat-typography">
+  <div mat-dialog-title class="d-flex justify-content-between">
+    <h2>
+      <span *ngIf="!data.isUpdate">Create Request</span
+      ><span *ngIf="data.isUpdate">Update Details</span>
+    </h2>
+    <button mat-icon-button mat-dialog-close><mat-icon>close</mat-icon></button>
+  </div>
+  <mat-dialog-content>
+    <form class="" [formGroup]="userForm">
+      <p class="text-danger" *ngIf="errorMsg !== ''">{{ errorMsg }}</p>
+      <div class="row">
+        <div class="col-6 form-group">
+          <label for="clientName">Client Name</label>
+          <div class="required">
+            <input
+              type="text"
+              id="clientName"
+              formControlName="clientName"
+              class="form-control"
+              placeholder=""
+              autocomplete="off"
+            />
+            <p
+              class="text-danger"
+              *ngIf="
+                isUserFormSubmitted &&
+                userForm.controls.clientName.invalid &&
+                userForm.controls.clientName.errors.required
+              "
+            >
+              Enter client name
+            </p>
+          </div>
+        </div>
+        <div class="col-6 form-group">
+          <label for="requesterName">ZS Requestor</label>
+          <div class="required">
+            <input
+              type="text"
+              id="requesterName"
+              formControlName="requesterName"
+              class="form-control"
+              placeholder=""
+              autocomplete="off"
+            />
+            <p
+              class="text-danger"
+              *ngIf="
+                isUserFormSubmitted &&
+                userForm.controls.requesterName.invalid &&
+                userForm.controls.requesterName.errors.required
+              "
+            >
+              Enter requester name
+            </p>
+          </div>
+        </div>
+        <div class="col-6 form-group">
+          <label for="days">Start Date</label>
+          <div class="position-relative required">
+            <input
+              matInput
+              [min]="minStartDate"
+              [matDatepicker]="accessStartDate"
+              id="accessStartDate"
+              formControlName="accessStartDate"
+              class="form-control transperent"
+              placeholder=""
+              autocomplete="off"
+              disabled
+            />
+            <div
+              class="date-placeholder"
+              (click)="accessStartDate.open()"
+            ></div>
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="accessStartDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #accessStartDate disabled="false"></mat-datepicker>
+            <p
+              class="text-danger"
+              *ngIf="
+                isUserFormSubmitted && userForm.controls.accessStartDate.invalid
+              "
+            >
+              <span
+                *ngIf="
+                  userForm.controls.accessStartDate.errors.matDatepickerMin
+                "
+                >Please select startdate as current or greater.</span
+              >
+            </p>
+          </div>
+        </div>
+        <div class="col-6 form-group">
+          <label for="days">End Date</label>
+          <div class="position-relative required">
+            <input
+              matInput
+              [min]="userForm.controls.accessStartDate.value || minStartDate"
+              [matDatepicker]="accessEndDate"
+              id="accessEndDate"
+              formControlName="accessEndDate"
+              class="form-control transperent"
+              placeholder=""
+              autocomplete="off"
+              disabled
+            />
+            <div class="date-placeholder" (click)="accessEndDate.open()"></div>
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="accessEndDate"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #accessEndDate disabled="false"></mat-datepicker>
+
+            <p
+              class="text-danger"
+              *ngIf="
+                isUserFormSubmitted && userForm.controls.accessEndDate.invalid
+              "
+            >
+              <span *ngIf="userForm.controls.accessEndDate.errors.required"
+                >Please select end-date</span
+              >
+              <span
+                *ngIf="userForm.controls.accessEndDate.errors.matDatepickerMin"
+                >Please select end-date grater then start Date.</span
+              >
+            </p>
+          </div>
+        </div>
+        <div class="col-12 form-group">
+          <label for="days">Access Reason</label>
+          <div class="required">
+            <textarea
+              class="form-control no-resize"
+              id="accessReason"
+              formControlName="accessReason"
+              rows="3"
+            ></textarea>
+            <p
+              class="text-danger"
+              *ngIf="
+                isUserFormSubmitted &&
+                userForm.controls.accessReason.invalid &&
+                userForm.controls.accessReason.errors.required
+              "
+            >
+              Enter access reason
+            </p>
+          </div>
+        </div>
+        <div class="col-12 switch-toggle" *ngIf="data.isUpdate">
+          <label>Status</label>
+          <div class="switch">
+            <input
+              type="checkbox"
+              class="checkbox"
+              id="accessStatus"
+              formControlName="accessStatus"
+            />
+            <div class="knobs">
+              <span>Unblock</span>
+            </div>
+            <div class="layer"></div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="alert alert-info m-0"
+        *ngIf="!data.isUpdate && !showSubmitButton"
+      >
+        <p><b>Please use the below details to access the gallery:</b></p>
+        <ul class="m-0">
+          <li>
+            URL:
+            <b
+              ><a href="{{ appURL }}" target="_blank">{{ appURL }}</a></b
+            >
+          </li>
+          <li class="pt-2">
+            Access Code: <b>{{ generatedAccessCode }}</b>
+          </li>
+        </ul>
+      </div>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions [align]="end">
+    <div class="col-12 form-group text-center pt-4 m-0">
+      <button
+        class="btn"
+        type="submit"
+        (click)="onUserSave()"
+        *ngIf="showSubmitButton"
+      >
+        <span *ngIf="!data.isUpdate">Generate Code</span
+        ><span *ngIf="data.isUpdate">Update Details</span>
+      </button>
+    </div>
+  </mat-dialog-actions>
+</div>
