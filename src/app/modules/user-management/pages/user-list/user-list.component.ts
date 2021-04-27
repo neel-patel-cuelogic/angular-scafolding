@@ -32,14 +32,12 @@ export class UserListComponent implements OnInit {
   ];
   public dataSource: MatTableDataSource<User>;
   public filterText = "";
-  public displayNoRecords = false;
   public selectedRowIndex = -1;
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) pageinator: MatPaginator;
 
   constructor(
-    private _router: Router,
     private _userManagementService: UserManagementService,
     private dialog: MatDialog // private _notification: MatNotificationService
   ) {}
@@ -53,9 +51,6 @@ export class UserListComponent implements OnInit {
         )
       )
       .subscribe((list) => this.getUsersList(list));
-    // this.dataSource = new ReactiveDatasource();
-    // this.dataSource.loadData(userList$);
-    // console.log(this.dataSource);
   }
 
   private getUsersList(userList) {
@@ -117,6 +112,11 @@ export class UserListComponent implements OnInit {
     this.applyFilter(this.filterText);
   }
 
+  public applyFilter(filterValue: string) {
+    this.filterText = filterValue.trim();
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
   private openDialog(
     isUpdate: boolean = false,
     user: any = null,
@@ -161,17 +161,6 @@ export class UserListComponent implements OnInit {
     // this.dialog.open(LockoutDialogBoxComponent, {
     //   width: '800px',
     // });
-  }
-
-  public applyFilter(filterValue: string) {
-    this.filterText = filterValue.trim();
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.filteredData.length === 0) {
-      this.displayNoRecords = true;
-    } else {
-      this.displayNoRecords = false;
-    }
   }
 
   onUserGenerate() {

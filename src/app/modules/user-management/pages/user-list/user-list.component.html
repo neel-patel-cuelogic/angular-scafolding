@@ -10,16 +10,19 @@
           [ngModelOptions]="{ standalone: true }"
           (keyup)="applyFilter($event.target.value)"
         />
-        <mat-icon matSuffix class="close-icon" *ngIf="filterText"
-          >close</mat-icon
+        <button
+          mat-icon-button
+          matSuffix
+          *ngIf="filterText"
+          (click)="applyFilter('')"
         >
+          <mat-icon>close</mat-icon>
+        </button>
         <mat-icon
           svgIcon="search"
-          class="search-icon"
           color="primary"
           matSuffix
           *ngIf="!filterText"
-          (click)="filterText = ''; applyFilter('')"
         ></mat-icon>
       </mat-form-field>
     </form>
@@ -126,10 +129,19 @@
     </table>
     <div
       class="no-data d-flex align-items-center justify-content-center"
-      *ngIf="displayNoRecords"
+      *ngIf="
+        dataSource?.data.length == 0 || dataSource?.filteredData.length == 0
+      "
       style="height: 200px"
     >
-      No data Available
+      <span *ngIf="dataSource.data.length == 0">No data available</span>
+      <span
+        *ngIf="
+          dataSource.data.length > 0 && dataSource.filteredData.length == 0
+        "
+      >
+        No filter data available
+      </span>
     </div>
     <mat-paginator
       class="sticky-pagination custom-pagination"
