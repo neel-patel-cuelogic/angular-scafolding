@@ -1,14 +1,11 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from "@angular/core";
-
-import { FormGroup } from "@angular/forms";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { Router } from "@angular/router";
-import { from } from "rxjs";
-import { map, mergeMap, tap } from "rxjs/operators";
-import { ReactiveDatasource } from "src/app/modules/material/utils/reactive-datasource";
+
+import { map } from "rxjs/operators";
 import { UserStatus } from "src/app/modules/shared/enum/enum";
 import { User } from "../../model/user";
 import { UserManagementService } from "../../services/user-management.service";
@@ -28,13 +25,12 @@ export class UserListComponent implements OnInit {
     "clientName",
     "requesterName",
     "accessCode",
-    "sessionStartDate",
+    "accessStartDate",
     "status",
     "lastLoggedIn",
     "more",
   ];
-  public dataSource: ReactiveDatasource;
-  public userList: MatTableDataSource<any>;
+  public dataSource: MatTableDataSource<User>;
   public filterText = "";
   public displayNoRecords = false;
   public selectedRowIndex = -1;
@@ -49,76 +45,77 @@ export class UserListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const userList$ = this._userManagementService
+    this._userManagementService
       .getUsersList()
       .pipe(
         map((val: any) =>
           val.data.map((v) => this._userManagementService.parseUserObj(v, true))
         )
-      );
-    this.dataSource = new ReactiveDatasource();
-    this.dataSource.loadData(userList$);
-    console.log(this.dataSource);
+      )
+      .subscribe((list) => this.getUsersList(list));
+    // this.dataSource = new ReactiveDatasource();
+    // this.dataSource.loadData(userList$);
+    // console.log(this.dataSource);
   }
 
-  // private getUsersList() {
-  //   const res = { data: null };
-  //   res.data = [];
+  private getUsersList(userList) {
+    const res = { data: null };
+    res.data = [];
 
-  //   this.userList = new MatTableDataSource(res.data);
-  //   this.userList.sort = this.sort;
-  //   this.userList.paginator = this.pageinator;
+    this.dataSource = new MatTableDataSource(userList);
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.pageinator;
 
-  //   this.userList.sortData = (item, sort) => {
-  //     if (sort.active === "sessionStartDate") {
-  //       return item.sort((a, b) => {
-  //         let x = 0;
-  //         if (a.sessionStartDate > b.sessionStartDate) {
-  //           x = 1;
-  //         } else if (
-  //           // a.sessionStartDate.getTime() === b.sessionStartDate.getTime()
-  //           a.sessionStartDate === b.sessionStartDate
-  //         ) {
-  //           x =
-  //             a.sessionEndDate > b.sessionEndDate
-  //               ? 1
-  //               : a.sessionEndDate < b.sessionEndDate
-  //               ? -1
-  //               : x;
-  //         } else {
-  //           x = -1;
-  //         }
-  //         return (
-  //           x *
-  //           (sort.direction === "asc" ? 1 : sort.direction === "desc" ? -1 : 0)
-  //         );
-  //       });
-  //     }
+    this.dataSource.sortData = (item, sort) => {
+      if (sort.active === "accessStartDate") {
+        return item.sort((a, b) => {
+          let x = 0;
+          if (a.accessStartDate > b.accessStartDate) {
+            x = 1;
+          } else if (
+            // a.sessionStartDate.getTime() === b.sessionStartDate.getTime()
+            a.accessStartDate === b.accessStartDate
+          ) {
+            x =
+              a.accessEndDate > b.accessEndDate
+                ? 1
+                : a.accessEndDate < b.accessEndDate
+                ? -1
+                : x;
+          } else {
+            x = -1;
+          }
+          return (
+            x *
+            (sort.direction === "asc" ? 1 : sort.direction === "desc" ? -1 : 0)
+          );
+        });
+      }
 
-  //     return item.sort((a, b) => {
-  //       const x =
-  //         a[sort.active] > b[sort.active]
-  //           ? 1
-  //           : a[sort.active] < b[sort.active]
-  //           ? -1
-  //           : 0;
-  //       return (
-  //         x *
-  //         (sort.direction === "asc" ? 1 : sort.direction === "desc" ? -1 : 0)
-  //       );
-  //     });
-  //   };
+      return item.sort((a, b) => {
+        const x =
+          a[sort.active] > b[sort.active]
+            ? 1
+            : a[sort.active] < b[sort.active]
+            ? -1
+            : 0;
+        return (
+          x *
+          (sort.direction === "asc" ? 1 : sort.direction === "desc" ? -1 : 0)
+        );
+      });
+    };
 
-  //   this.userList.filterPredicate = (data, filter: string): boolean => {
-  //     filter = filter.toLowerCase();
-  //     return (
-  //       data.clientName.toLowerCase().includes(filter) ||
-  //       data.accessCode.toLowerCase().includes(filter) ||
-  //       data.requesterName.toLowerCase().includes(filter)
-  //     );
-  //   };
-  //   this.applyFilter(this.filterText);
-  // }
+    this.dataSource.filterPredicate = (data, filter: string): boolean => {
+      filter = filter.toLowerCase();
+      return (
+        data.clientName.toLowerCase().includes(filter) ||
+        data.accessCode.toLowerCase().includes(filter) ||
+        data.requesterName.toLowerCase().includes(filter)
+      );
+    };
+    this.applyFilter(this.filterText);
+  }
 
   private openDialog(
     isUpdate: boolean = false,
@@ -168,9 +165,9 @@ export class UserListComponent implements OnInit {
 
   public applyFilter(filterValue: string) {
     this.filterText = filterValue.trim();
-    this.userList.filter = filterValue.trim().toLowerCase();
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    if (this.userList.filteredData.length === 0) {
+    if (this.dataSource.filteredData.length === 0) {
       this.displayNoRecords = true;
     } else {
       this.displayNoRecords = false;
