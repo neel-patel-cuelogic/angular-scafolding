@@ -9,8 +9,8 @@ $custom-typography: mat-typography-config(
   $title: mat-typography-level(fontSize(20,16),1.4),
   $subheading-2: mat-typography-level(fontSize(22,16),1.4),
   $subheading-1: mat-typography-level(fontSize(15,13), 1.4),
-  $body-2: mat-typography-level(fontSize(14,14),1.4),
-  $body-1: mat-typography-level(fontSize(14,14),1.4111),
+  $body-2: mat-typography-level(fontSize(14,12),1.4),
+  $body-1: mat-typography-level(fontSize(14,12),1.4111),
   $caption: mat-typography-level(fontSize(12,12),1.4),
   $button: mat-typography-level(fontSize(16,13),1.4),
   // Line-height must be unit-less fraction of the font-size.
