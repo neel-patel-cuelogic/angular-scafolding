@@ -1,14 +1,10 @@
-import { Injectable, EventEmitter } from "@angular/core";
+import { Injectable } from "@angular/core";
 import * as moment from "moment";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { HttpWrapperService } from "../../core/services/http-wrapper.service";
-
-export enum UserStatus {
-  ACTIVE = "Active",
-  INACTIVE = "Inactive",
-  ACTIVE_B = "Active (Blocked)",
-}
+import { UserStatus } from "../../shared/enum/enum";
+import { User } from "../model/user";
 
 @Injectable()
 export class UserManagementService {
@@ -16,18 +12,16 @@ export class UserManagementService {
 
   constructor(private _httpWrapperService: HttpWrapperService) {}
 
-  parseUserObj(result, isResponse: boolean, timeZoneOffset) {
+  parseUserObj(result, isResponse: boolean) {
     let accessStatus = result.accessStatus;
     let startDate = result.accessStartDate;
     let endDate = result.accessEndDate;
     if (isResponse) {
       accessStatus = result.accessStatus === "unblock" ? true : false;
-      startDate = new Date(+result.accessStartDate); // - (timeZoneOffset * 60 * 1000)
-      endDate = new Date(+result.accessEndDate); // - (timeZoneOffset * 60 * 1000)
+      startDate = new Date(+result.accessStartDate);
+      endDate = new Date(+result.accessEndDate);
     } else {
       accessStatus = result.accessStatus ? "unblock" : "block";
-      // startDate = result.accessStartDate.getTime(); // + (timeZoneOffset * 60 * 1000);
-      // endDate = result.accessEndDate.getTime();// + (timeZoneOffset * 60 * 1000);
       let time = moment(result.accessStartDate).format("YYYY/MM/DD");
       startDate = moment(time).format("x");
       time = moment(result.accessEndDate).format("YYYY/MM/DD") + " 23:59:59";
@@ -50,7 +44,13 @@ export class UserManagementService {
   }
 
   getUsersList(): Observable<Response> {
-    return this._httpWrapperService.get(environment.api_url + "/users");
+    if (environment.production) {
+      return this._httpWrapperService.get(environment.api_url + "/users");
+    } else {
+      return this._httpWrapperService.get(
+        environment.local_url + "/usermanagement/userList.json"
+      );
+    }
   }
 
   updateUser(user): Observable<Response> {

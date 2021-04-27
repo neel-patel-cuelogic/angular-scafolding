@@ -6,6 +6,12 @@ import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
 import { Router } from "@angular/router";
+import { from } from "rxjs";
+import { map, mergeMap, tap } from "rxjs/operators";
+import { ReactiveDatasource } from "src/app/modules/material/utils/reactive-datasource";
+import { UserStatus } from "src/app/modules/shared/enum/enum";
+import { User } from "../../model/user";
+import { UserManagementService } from "../../services/user-management.service";
 
 @Component({
   selector: "app-user-list",
@@ -13,6 +19,11 @@ import { Router } from "@angular/router";
   styleUrls: ["./user-list.component.scss"],
 })
 export class UserListComponent implements OnInit {
+  get UserStatus() {
+    return UserStatus;
+  }
+  public pageSizeOption = [5, 10, 15, 20];
+  public pageSize = 10;
   public displayedColumns = [
     "clientName",
     "requesterName",
@@ -22,276 +33,92 @@ export class UserListComponent implements OnInit {
     "lastLoggedIn",
     "more",
   ];
-  public currentDate = new Date();
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild(MatPaginator, { static: true }) pageinator: MatPaginator;
-
-  public adminForm: FormGroup;
+  public dataSource: ReactiveDatasource;
   public userList: MatTableDataSource<any>;
-  public UserStatus = {
-    ACTIVE: "Active",
-    INACTIVE: "Inactive",
-    ACTIVE_BLOCK: "Active (Blocked)",
-  };
   public filterText = "";
   public displayNoRecords = false;
   public selectedRowIndex = -1;
 
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) pageinator: MatPaginator;
+
   constructor(
     private _router: Router,
-    private dialog: MatDialog
-  ) // private _notification: MatNotificationService
-  {}
+    private _userManagementService: UserManagementService,
+    private dialog: MatDialog // private _notification: MatNotificationService
+  ) {}
 
   ngOnInit() {
-    this.getUsersList();
-  }
-
-  private getUsersList() {
-    // const timeZoneOffset = (new Date()).getTimezoneOffset();
-    // this._adminService.getUsersList().subscribe((res: any) => {
-    const res = { data: null };
-    res.data = [
-      {
-        userId: 82,
-        clientName: "Test",
-        requesterName: "PB",
-        accessCode: "s5y2xrqt",
-        sessionStartDate: "1570645800000",
-        sessionEndDate: "1593023399000",
-        accessStatus: "unblock",
-        accessReason: "PB",
-        createdAt: "1570706200000",
-        updatedAt: "1592826367000",
-        lastLoggedIn: "1592826429000",
-        userMetaInfo: {
-          ipAddress: "1.23.148.18",
-        },
-      },
-      {
-        userId: 96,
-        clientName: "shital",
-        requesterName: "cuelogic",
-        accessCode: "g9scwz3p",
-        sessionStartDate: "1575916200000",
-        sessionEndDate: "1607538599000",
-        accessStatus: "unblock",
-        accessReason: "ttt",
-        createdAt: "1575964468000",
-        updatedAt: "1592457585000",
-        lastLoggedIn: "1592569754000",
-        userMetaInfo: {
-          ipAddress: "157.33.143.120",
-        },
-      },
-      {
-        userId: 113,
-        clientName: "Sharayu",
-        requesterName: "Rahul",
-        accessCode: "j5u8qdaf",
-        sessionStartDate: "1585852200000",
-        sessionEndDate: "1586975399000",
-        accessStatus: "unblock",
-        accessReason: "Walkthrough",
-        createdAt: "1585894967000",
-        updatedAt: "1585894967000",
-        lastLoggedIn: "1586330144000",
-        userMetaInfo: {
-          ipAddress: "165.225.124.90",
-        },
-      },
-      {
-        userId: 112,
-        clientName: "Arushi",
-        requesterName: "Rahul",
-        accessCode: "8rn9xhl5",
-        sessionStartDate: "1585679400000",
-        sessionEndDate: "1586975399000",
-        accessStatus: "unblock",
-        accessReason: "Review field coaching tile",
-        createdAt: "1585740953000",
-        updatedAt: "1585740953000",
-        lastLoggedIn: "1586245013000",
-        userMetaInfo: {
-          ipAddress: "165.225.124.111",
-        },
-      },
-      {
-        userId: 77,
-        clientName: "Cuelogic",
-        requesterName: "Neel",
-        accessCode: "slggjkt8",
-        sessionStartDate: "1570127400000",
-        sessionEndDate: "1572546599000",
-        accessStatus: "unblock",
-        accessReason: "Demo",
-        createdAt: "1570193214000",
-        updatedAt: "1583321472000",
-        lastLoggedIn: null,
-        userMetaInfo: null,
-      },
-      {
-        userId: 108,
-        clientName: "Testing User",
-        requesterName: "Cuelogic",
-        accessCode: "nh6ei1ge",
-        sessionStartDate: "1577644200000",
-        sessionEndDate: "1580495399000",
-        accessStatus: "unblock",
-        accessReason: "Testing User''''''''''''''''s",
-        createdAt: "1577699648000",
-        updatedAt: "1578996730000",
-        lastLoggedIn: null,
-        userMetaInfo: null,
-      },
-      {
-        userId: 111,
-        clientName: "c1319<script>alert(1)</script>gw8cg",
-        requesterName: "ZS",
-        accessCode: "268l7jq9",
-        sessionStartDate: "1578335400000",
-        sessionEndDate: "1578508199000",
-        accessStatus: "unblock",
-        accessReason: "test",
-        createdAt: "1578405086000",
-        updatedAt: "1578996628000",
-        lastLoggedIn: "1578405126000",
-        userMetaInfo: {},
-      },
-      {
-        userId: 109,
-        clientName: "cuetestnp",
-        requesterName: "cuetestnp",
-        accessCode: "r8xi0fnx",
-        sessionStartDate: "1577989800000",
-        sessionEndDate: "1579717799000",
-        accessStatus: "block",
-        accessReason: "test",
-        createdAt: "1578049274000",
-        updatedAt: "1578054393000",
-        lastLoggedIn: null,
-        userMetaInfo: null,
-      },
-      {
-        userId: 110,
-        clientName: "cuetestnp2",
-        requesterName: "cuetestnp2",
-        accessCode: "prddm8tq",
-        sessionStartDate: "1577989800000",
-        sessionEndDate: "1580408999000",
-        accessStatus: "block",
-        accessReason: "sfdsf",
-        createdAt: "1578054239000",
-        updatedAt: "1578054267000",
-        lastLoggedIn: null,
-        userMetaInfo: null,
-      },
-      {
-        userId: 100,
-        clientName: "Shital",
-        requesterName: "Test",
-        accessCode: "1s4fb9p3",
-        sessionStartDate: "1575916200000",
-        sessionEndDate: "1577816999000",
-        accessStatus: "unblock",
-        accessReason:
-          "Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test Test ",
-        createdAt: "1575965053000",
-        updatedAt: "1577108215000",
-        lastLoggedIn: "1577108340000",
-        userMetaInfo: {
-          ipAddress: "14.141.151.78",
-        },
-      },
-      {
-        userId: 102,
-        clientName: "test",
-        requesterName: "test",
-        accessCode: "nmbpbys9",
-        sessionStartDate: "1575916200000",
-        sessionEndDate: "1577816999000",
-        accessStatus: "unblock",
-        accessReason: "test",
-        createdAt: "1575973786000",
-        updatedAt: "1577108208000",
-        lastLoggedIn: null,
-        userMetaInfo: null,
-      },
-      {
-        userId: 103,
-        clientName: "Test",
-        requesterName: "test",
-        accessCode: "hmmgdnwx",
-        sessionStartDate: "1575916200000",
-        sessionEndDate: "1577298599000",
-        accessStatus: "unblock",
-        accessReason: "test",
-        createdAt: "1575973937000",
-        updatedAt: "1577108200000",
-        lastLoggedIn: null,
-        userMetaInfo: null,
-      },
-    ];
-    // res.data.forEach(v => {
-    //   v = this._adminService.parseUserObj(v, true, timeZoneOffset);
-    // });
-
-    this.userList = new MatTableDataSource(res.data);
-    this.userList.sort = this.sort;
-    this.userList.paginator = this.pageinator;
-
-    this.userList.sortData = (item, sort) => {
-      if (sort.active === "sessionStartDate") {
-        return item.sort((a, b) => {
-          let x = 0;
-          if (a.sessionStartDate > b.sessionStartDate) {
-            x = 1;
-          } else if (
-            // a.sessionStartDate.getTime() === b.sessionStartDate.getTime()
-            a.sessionStartDate === b.sessionStartDate
-          ) {
-            x =
-              a.sessionEndDate > b.sessionEndDate
-                ? 1
-                : a.sessionEndDate < b.sessionEndDate
-                ? -1
-                : x;
-          } else {
-            x = -1;
-          }
-          return (
-            x *
-            (sort.direction === "asc" ? 1 : sort.direction === "desc" ? -1 : 0)
-          );
-        });
-      }
-
-      return item.sort((a, b) => {
-        const x =
-          a[sort.active] > b[sort.active]
-            ? 1
-            : a[sort.active] < b[sort.active]
-            ? -1
-            : 0;
-        return (
-          x *
-          (sort.direction === "asc" ? 1 : sort.direction === "desc" ? -1 : 0)
-        );
-      });
-    };
-
-    this.userList.filterPredicate = (data, filter: string): boolean => {
-      filter = filter.toLowerCase();
-      return (
-        data.clientName.toLowerCase().includes(filter) ||
-        data.accessCode.toLowerCase().includes(filter) ||
-        data.requesterName.toLowerCase().includes(filter)
+    const userList$ = this._userManagementService
+      .getUsersList()
+      .pipe(
+        map((val: any) =>
+          val.data.map((v) => this._userManagementService.parseUserObj(v, true))
+        )
       );
-      // data.status.toLowerCase().includes(filter);
-    };
-    this.applyFilter(this.filterText);
-    // });
+    this.dataSource = new ReactiveDatasource();
+    this.dataSource.loadData(userList$);
+    console.log(this.dataSource);
   }
+
+  // private getUsersList() {
+  //   const res = { data: null };
+  //   res.data = [];
+
+  //   this.userList = new MatTableDataSource(res.data);
+  //   this.userList.sort = this.sort;
+  //   this.userList.paginator = this.pageinator;
+
+  //   this.userList.sortData = (item, sort) => {
+  //     if (sort.active === "sessionStartDate") {
+  //       return item.sort((a, b) => {
+  //         let x = 0;
+  //         if (a.sessionStartDate > b.sessionStartDate) {
+  //           x = 1;
+  //         } else if (
+  //           // a.sessionStartDate.getTime() === b.sessionStartDate.getTime()
+  //           a.sessionStartDate === b.sessionStartDate
+  //         ) {
+  //           x =
+  //             a.sessionEndDate > b.sessionEndDate
+  //               ? 1
+  //               : a.sessionEndDate < b.sessionEndDate
+  //               ? -1
+  //               : x;
+  //         } else {
+  //           x = -1;
+  //         }
+  //         return (
+  //           x *
+  //           (sort.direction === "asc" ? 1 : sort.direction === "desc" ? -1 : 0)
+  //         );
+  //       });
+  //     }
+
+  //     return item.sort((a, b) => {
+  //       const x =
+  //         a[sort.active] > b[sort.active]
+  //           ? 1
+  //           : a[sort.active] < b[sort.active]
+  //           ? -1
+  //           : 0;
+  //       return (
+  //         x *
+  //         (sort.direction === "asc" ? 1 : sort.direction === "desc" ? -1 : 0)
+  //       );
+  //     });
+  //   };
+
+  //   this.userList.filterPredicate = (data, filter: string): boolean => {
+  //     filter = filter.toLowerCase();
+  //     return (
+  //       data.clientName.toLowerCase().includes(filter) ||
+  //       data.accessCode.toLowerCase().includes(filter) ||
+  //       data.requesterName.toLowerCase().includes(filter)
+  //     );
+  //   };
+  //   this.applyFilter(this.filterText);
+  // }
 
   private openDialog(
     isUpdate: boolean = false,
