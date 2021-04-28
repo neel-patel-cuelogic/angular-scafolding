@@ -55,6 +55,9 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._appService.isSideOpen.subscribe((v) => {
+      this.isSidePanelOpen = v;
+    });
     this._router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.isSidePanelOpen = false;
@@ -100,12 +103,10 @@ export class AppComponent implements OnInit {
   }
 
   onDrawerOpen() {
-    this.isSidePanelOpen = true;
-    this._appService.setSidePanelStatus(this.isSidePanelOpen);
+    this._appService.setSidePanelStatus(true);
   }
   onDrawerClose() {
-    this.isSidePanelOpen = false;
-    this._appService.setSidePanelStatus(this.isSidePanelOpen);
+    this._appService.setSidePanelStatus(false);
   }
 
   togglePrimaryLoader(value) {
