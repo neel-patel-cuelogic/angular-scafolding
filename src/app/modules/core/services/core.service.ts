@@ -1,19 +1,20 @@
-import { Injectable, EventEmitter } from "@angular/core";
-import { HttpWrapperService } from "./http-wrapper.service";
-import { environment } from "src/environments/environment";
+import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { HttpWrapperService } from "src/app/http/http-wrapper.service";
+import { environment } from "src/environments/environment";
 
-@Injectable({
-  providedIn: "root",
-})
+@Injectable()
 export class CoreService {
-  constructor(private _http: HttpWrapperService) {}
+  constructor(private _httpWrapperService: HttpWrapperService) {}
 
   logout(userId): Observable<Response> {
     const request = {
       userId,
       logoutTime: new Date().getTime(),
     };
-    return this._http.post(environment.api_url + "/auth/logout", request);
+    return this._httpWrapperService.post(
+      environment.api_url + "/auth/logout",
+      request
+    );
   }
 }

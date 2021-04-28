@@ -6,8 +6,6 @@ import { RouterModule } from "@angular/router";
 import { HeaderComponent } from "./components/header/header.component";
 import { FooterComponent } from "./components/footer/footer.component";
 import { CoreService } from "./services/core.service";
-import { AuthService } from "./services/auth.service";
-import { AuthGuardService } from "./guards/auth-guard.service";
 import { LeftNavBarComponent } from "./components/left-nav-bar/left-nav-bar.component";
 import { DrawerComponent } from "./components/drawer/drawer.component";
 import { MaterialModule } from "../material/material.module";
@@ -20,7 +18,7 @@ import { MaterialModule } from "../material/material.module";
     DrawerComponent,
   ],
   imports: [CommonModule, RouterModule, HttpClientModule, MaterialModule],
-  providers: [AuthService, AuthGuardService, CoreService],
+  providers: [CoreService],
   exports: [
     LeftNavBarComponent,
     HeaderComponent,

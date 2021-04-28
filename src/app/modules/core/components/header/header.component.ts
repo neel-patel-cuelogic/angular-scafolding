@@ -6,13 +6,10 @@ import {
   Output,
   EventEmitter,
 } from "@angular/core";
-import { DOCUMENT } from "@angular/common";
-import { AuthService } from "../../services/auth.service";
+import { AuthService } from "src/app/auth/auth.service";
+import { AppService } from "src/app/services/app.service";
 import { CoreService } from "../../services/core.service";
-import { CookieService } from "../../services/cookie-wrapper.service";
-import { Router, NavigationStart, NavigationEnd } from "@angular/router";
-import { MatSnackBar } from "@angular/material/snack-bar";
-
+import { Router } from "@angular/router";
 @Component({
   selector: "app-header",
   templateUrl: "./header.component.html",
@@ -20,11 +17,11 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 })
 export class HeaderComponent implements OnInit {
   @Output() toggleDrawerEmmit: EventEmitter<any> = new EventEmitter<any>();
-  @Output() logoutEmmit: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private _authService: AuthService,
-    private _coreService: CoreService
+    private _coreService: CoreService,
+    private _router: Router
   ) {}
 
   ngOnInit() {}
@@ -35,6 +32,12 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this._coreService.logout(this._authService.getUserId()).toPromise();
-    this.logoutEmmit.emit();
+    this._authService.removeUser();
+
+    // if (this._isAdmin) {
+    //   this._router.navigate(["admin/login"]);
+    // } else {
+    //   this._router.navigate(["login"]);
+    // }
   }
 }

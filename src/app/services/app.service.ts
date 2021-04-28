@@ -1,0 +1,21 @@
+import { Injectable, EventEmitter } from "@angular/core";
+import { Observable } from "rxjs";
+import { environment } from "src/environments/environment";
+import { HttpWrapperService } from "../http/http-wrapper.service";
+
+@Injectable({
+  providedIn: "root",
+})
+export class AppService {
+  public onCustomEvent: EventEmitter<any> = new EventEmitter<any>();
+
+  constructor() {}
+
+  updateCustomEvent(obj) {
+    this.onCustomEvent.next(obj);
+  }
+
+  togglePrimaryLoader(value) {
+    this.onCustomEvent.next({ event: "togglePrimariLoader", data: value });
+  }
+}

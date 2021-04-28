@@ -44,12 +44,12 @@ export class CookieService {
 
   clearCloudfrontCookies() {
     const cookiePrefix = [
-        "CloudFront-Policy",
-        "CloudFront-Key-Pair-Id",
-        "CloudFront-Signature",
-      ],
-      prefixFlagIndex = ["unchecked", "unchecked", "unchecked"],
-      cookies = this.getCookie();
+      "CloudFront-Policy",
+      "CloudFront-Key-Pair-Id",
+      "CloudFront-Signature",
+    ];
+    const prefixFlagIndex = ["unchecked", "unchecked", "unchecked"];
+    const cookies = this.getCookie();
 
     cookies.forEach((cookie) => {
       if (prefixFlagIndex.indexOf("unchecked") > -1) {
