@@ -6,7 +6,7 @@ import {
   CanActivateChild,
 } from "@angular/router";
 import { Observable } from "rxjs";
-import { AppService } from "../services/app.service";
+import { AppService } from "../../../services/app.service";
 import { AuthService } from "../auth/auth.service";
 import { CookieService } from "../auth/cookie.service";
 

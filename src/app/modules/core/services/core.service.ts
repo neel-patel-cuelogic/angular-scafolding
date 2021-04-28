@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { HttpWrapperService } from "src/app/http/http-wrapper.service";
+import { HttpWrapperService } from "src/app/modules/core/http/http-wrapper.service";
 import { environment } from "src/environments/environment";
 
 @Injectable()

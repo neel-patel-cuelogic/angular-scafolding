@@ -6,7 +6,7 @@ import {
   Output,
   EventEmitter,
 } from "@angular/core";
-import { AuthService } from "src/app/auth/auth.service";
+import { AuthService } from "src/app/modules/core/auth/auth.service";
 import { AppService } from "src/app/services/app.service";
 import { CoreService } from "../../services/core.service";
 import { Router } from "@angular/router";

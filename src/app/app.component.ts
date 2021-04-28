@@ -8,7 +8,7 @@ import {
   ViewChild,
 } from "@angular/core";
 import { NavigationEnd, NavigationStart, Router } from "@angular/router";
-import { AuthService } from "./auth/auth.service";
+import { AuthService } from "./modules/core/auth/auth.service";
 import { MatNotificationService } from "./modules/material/services/mat-notification.service";
 import { AppService } from "./services/app.service";
 
@@ -49,15 +49,20 @@ export class AppComponent implements OnInit {
         this.isLoggedIn = true;
       } else {
         this._isAdmin = false;
-        this.isLoggedIn = true;
+        this.isLoggedIn = false;
       }
     });
   }
 
   ngOnInit() {
-    this._appService.isSideOpen.subscribe((v) => {
-      this.isSidePanelOpen = v;
+    this._appService.isSideOpen.subscribe({
+      complete: null,
+      error: null,
+      next: (v) => {
+        this.isSidePanelOpen = v;
+      },
     });
+
     this._router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         this.isSidePanelOpen = false;
