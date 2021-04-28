@@ -19,6 +19,7 @@ import { AppService } from "./services/app.service";
 })
 export class AppComponent implements OnInit {
   public isLoggedIn = false;
+  public isSidePanelOpen = false;
   protected _isAdmin = false;
   protected _isShowPrimaryLoader = false;
   protected _themes = ["primary-theme"];
@@ -56,6 +57,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this._router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
+        this.isSidePanelOpen = false;
         // if (event.url === "/login") {
         //   this.role = "user";
         // } else if (event.url === "/admin/login") {
@@ -95,6 +97,15 @@ export class AppComponent implements OnInit {
           break;
       }
     });
+  }
+
+  onDrawerOpen() {
+    this.isSidePanelOpen = true;
+    this._appService.setSidePanelStatus(this.isSidePanelOpen);
+  }
+  onDrawerClose() {
+    this.isSidePanelOpen = false;
+    this._appService.setSidePanelStatus(this.isSidePanelOpen);
   }
 
   togglePrimaryLoader(value) {

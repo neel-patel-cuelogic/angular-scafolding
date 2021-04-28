@@ -16,18 +16,26 @@ import { Router } from "@angular/router";
   styleUrls: ["./header.component.scss"],
 })
 export class HeaderComponent implements OnInit {
+  public isDrawerOpen: boolean;
   @Output() toggleDrawerEmmit: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private _authService: AuthService,
     private _coreService: CoreService,
-    private _router: Router
+    private _router: Router,
+    private _appService: AppService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this._appService.isSideOpen.subscribe((v: boolean) => {
+      this.isDrawerOpen = v;
+      console.log(this.isDrawerOpen);
+    });
+  }
 
   onToggleDrawerClick() {
-    this.toggleDrawerEmmit.emit();
+    this.isDrawerOpen = true;
+    this.toggleDrawerEmmit.emit(this.isDrawerOpen);
   }
 
   logout() {
