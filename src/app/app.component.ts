@@ -47,11 +47,11 @@ export class AppComponent implements OnInit {
 
     this._authService.onUserInfoUpate.subscribe((data) => {
       if (data) {
-        this._renderer.removeClass(this.document.body, "not-logedin");
+        this._renderer.removeClass(this.document.body, "not-loggedin");
         this._isAdmin = data.isAdmin;
         this._isLoggedIn = true;
       } else {
-        this._renderer.addClass(this.document.body, "not-logedin");
+        this._renderer.addClass(this.document.body, "not-loggedin");
         this._isAdmin = false;
         this._isLoggedIn = false;
       }

@@ -3,11 +3,12 @@ import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatTableDataSource } from "@angular/material/table";
-import { Router } from "@angular/router";
 
 import { map } from "rxjs/operators";
+import { MatNotificationService } from "src/app/modules/material/services/mat-notification.service";
 import { UserStatus } from "src/app/modules/shared/enum/enum";
 import { HistoryDialogBoxComponent } from "../../components/history-dialog-box/history-dialog-box.component";
+import { UserDialogBoxComponent } from "../../components/user-dialog-box/user-dialog-box.component";
 import { ViewUserDialogBoxComponent } from "../../components/view-user-dialog-box/view-user-dialog-box.component";
 import { User } from "../../model/user";
 import { UserManagementService } from "../../services/user-management.service";
@@ -41,7 +42,8 @@ export class UserListComponent implements OnInit {
 
   constructor(
     private _userManagementService: UserManagementService,
-    private dialog: MatDialog // private _notification: MatNotificationService
+    private dialog: MatDialog,
+    private _notification: MatNotificationService
   ) {}
 
   ngOnInit() {
@@ -131,28 +133,22 @@ export class UserListComponent implements OnInit {
     user: any = null,
     errorMsg: string = ""
   ) {
-    // const dialogRef = this.dialog.open(UserDialogBoxComponent, {
-    //   data: {
-    //     isUpdate,
-    //     user
-    //   },
-    //   panelClass: 'user-dialog-container',
-    //   disableClose: true
-    // });
-    // dialogRef.afterClosed().subscribe(result => {
-    //   // console.log(`Dialog result:`, result);
-    //   if (result) {
-    //     // Close on click of save or update user button.
-    //     this._snackBar.open(result.message, '', {
-    //       duration: 3000,
-    //       panelClass: 'success',
-    //       verticalPosition: 'top',
-    //       horizontalPosition: 'right'
-    //     });
-    //     this.highlightSelectedRecord(isUpdate ? user : result.data);
-    //   }
-    //   this.getUsersList();
-    // });
+    const dialogRef = this.dialog.open(UserDialogBoxComponent, {
+      data: {
+        isUpdate,
+        user,
+      },
+      panelClass: "user-dialog-container",
+      disableClose: true,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      // console.log(`Dialog result:`, result);
+      if (result) {
+        this._notification.success(result.message);
+        this.highlightSelectedRecord(isUpdate ? user : result.data);
+      }
+      // this.getUsersList();
+    });
   }
 
   public openHistoryDialog(user) {

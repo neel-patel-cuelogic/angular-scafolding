@@ -10,52 +10,25 @@
     <form class="" [formGroup]="userForm">
       <p class="text-danger" *ngIf="errorMsg !== ''">{{ errorMsg }}</p>
       <div class="row">
-        <div class="col-6 form-group">
-          <label for="clientName">Client Name</label>
-          <div class="required">
-            <input
-              type="text"
-              id="clientName"
-              formControlName="clientName"
-              class="form-control"
-              placeholder=""
-              autocomplete="off"
-            />
-            <p
-              class="text-danger"
-              *ngIf="
-                isUserFormSubmitted &&
-                userForm.controls.clientName.invalid &&
-                userForm.controls.clientName.errors.required
-              "
-            >
-              Enter client name
-            </p>
-          </div>
+        <div class="col-6">
+          <mat-form-field appearance="outline" class="custom-input">
+            <mat-label>Client Name</mat-label>
+            <input matInput formControlName="clientName" autocomplete="off" />
+            <mat-error>Enter client name</mat-error>
+          </mat-form-field>
         </div>
-        <div class="col-6 form-group">
-          <label for="requesterName">ZS Requestor</label>
-          <div class="required">
+        <div class="col-6">
+          <mat-form-field appearance="outline" class="custom-input">
+            <mat-label>ZS Requestor</mat-label>
             <input
-              type="text"
-              id="requesterName"
+              matInput
               formControlName="requesterName"
-              class="form-control"
-              placeholder=""
               autocomplete="off"
             />
-            <p
-              class="text-danger"
-              *ngIf="
-                isUserFormSubmitted &&
-                userForm.controls.requesterName.invalid &&
-                userForm.controls.requesterName.errors.required
-              "
-            >
-              Enter requester name
-            </p>
-          </div>
+            <mat-error>Enter client name</mat-error>
+          </mat-form-field>
         </div>
+
         <div class="col-6 form-group">
           <label for="days">Start Date</label>
           <div class="position-relative required">
@@ -81,9 +54,7 @@
             <mat-datepicker #accessStartDate disabled="false"></mat-datepicker>
             <p
               class="text-danger"
-              *ngIf="
-                isUserFormSubmitted && userForm.controls.accessStartDate.invalid
-              "
+              *ngIf="userForm.controls.accessStartDate.invalid"
             >
               <span
                 *ngIf="
@@ -117,9 +88,7 @@
 
             <p
               class="text-danger"
-              *ngIf="
-                isUserFormSubmitted && userForm.controls.accessEndDate.invalid
-              "
+              *ngIf="userForm.controls.accessEndDate.invalid"
             >
               <span *ngIf="userForm.controls.accessEndDate.errors.required"
                 >Please select end-date</span
@@ -132,25 +101,14 @@
           </div>
         </div>
         <div class="col-12 form-group">
-          <label for="days">Access Reason</label>
-          <div class="required">
-            <textarea
-              class="form-control no-resize"
-              id="accessReason"
-              formControlName="accessReason"
-              rows="3"
-            ></textarea>
-            <p
-              class="text-danger"
-              *ngIf="
-                isUserFormSubmitted &&
-                userForm.controls.accessReason.invalid &&
-                userForm.controls.accessReason.errors.required
-              "
-            >
-              Enter access reason
-            </p>
-          </div>
+          <mat-form-field
+            class="custom-input custom-textarea"
+            appearance="outline"
+          >
+            <mat-label>Access Reason</mat-label>
+            <textarea matInput formControlName="accessReason"></textarea>
+            <mat-error>Enter access reason</mat-error>
+          </mat-form-field>
         </div>
         <div class="col-12 switch-toggle" *ngIf="data.isUpdate">
           <label>Status</label>
@@ -187,7 +145,7 @@
       </div>
     </form>
   </mat-dialog-content>
-  <mat-dialog-actions [align]="end">
+  <mat-dialog-actions>
     <div class="col-12 form-group text-center pt-4 m-0">
       <button
         class="btn"

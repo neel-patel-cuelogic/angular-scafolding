@@ -3,7 +3,6 @@
 // @import "../utils/varibales";
 
 @mixin mat-button-custom-color($config-or-theme) {
-  
   // @include application-varibales($config-or-theme);
   @include mat-button-color($config-or-theme);
   $config: mat-get-color-config($config-or-theme);
@@ -12,31 +11,30 @@
   $warn: map-get($config, warn);
   $extra-color-1: map-get($config, extra-color-1);
 
-
-  button{
+  button {
     outline: none;
-    .mat-icon{
+    .mat-icon {
       line-height: 1;
       margin-top: -2px;
     }
-    & + button{
-      margin-left: 10px
+    & + button {
+      margin-left: 10px;
     }
     &.custom-button {
       @include elemHeight(46);
       min-height: 36px;
       &.mat-primary {
         background-color: mat-color($primary);
-        color: mat-color($primary, '900-contrast');
+        color: mat-color($primary, "900-contrast");
       }
     }
-    &.link{
+    &.link {
       color: mat-color($primary);
-      .mat-button-focus-overlay{
+      .mat-button-focus-overlay {
         display: none;
       }
     }
-    &.default-button{
+    &.default-button {
       &.mat-primary {
         background-color: mat-color($extra-color-1, custom-default);
       }
