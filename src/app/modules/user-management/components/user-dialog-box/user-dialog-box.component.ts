@@ -37,10 +37,7 @@ export class UserDialogBoxComponent implements OnInit {
     }
     this.userForm = formBuilder.group(
       {
-        clientName: [
-          user.clientName || "",
-          [Validators.required, Validators.email],
-        ],
+        clientName: [user.clientName || "", [Validators.required]],
         requesterName: [user.requesterName || "", Validators.required],
         accessStartDate: [
           user.accessStartDate || currentDate,
@@ -66,30 +63,30 @@ export class UserDialogBoxComponent implements OnInit {
     const user = { ...this.data.user, ...this.userForm.value };
     const requestUser = this._userManagementService.parseUserObj(user, false);
 
-    // if (this.data.isUpdate) {
-    //   this._userManagementService
-    //     .updateUser(requestUser)
-    //     .subscribe((data: any) => {
-    //       if (data) {
-    //         this.dialogRef.close(data);
-    //       } else {
-    //         this.errorMsg = data.errorMessage;
-    //       }
-    //     });
-    // } else {
-    //   requestUser.role = "guest";
-    //   requestUser.accessStatus = "unblock";
-    //   this._userManagementService
-    //     .addUser(requestUser)
-    //     .subscribe((data: any) => {
-    //       if (data) {
-    //         this.showSubmitButton = false;
-    //         this.generatedAccessCode = data.data.accessCode;
-    //         this.generateResponse = data;
-    //       } else {
-    //         this.errorMsg = data.errorMessage;
-    //       }
-    //     });
-    // }
+    if (this.data.isUpdate) {
+      this._userManagementService
+        .updateUser(requestUser)
+        .subscribe((data: any) => {
+          if (data) {
+            this.dialogRef.close(data);
+          } else {
+            this.errorMsg = data.errorMessage;
+          }
+        });
+    } else {
+      requestUser.role = "guest";
+      requestUser.accessStatus = "unblock";
+      this._userManagementService
+        .addUser(requestUser)
+        .subscribe((data: any) => {
+          if (data) {
+            this.showSubmitButton = false;
+            this.generatedAccessCode = data.data.accessCode;
+            this.generateResponse = data;
+          } else {
+            this.errorMsg = data.errorMessage;
+          }
+        });
+    }
   }
 }
