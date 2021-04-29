@@ -1,12 +1,13 @@
-<mat-drawer-container class="example-container" [hasBackdrop]="true">
-  <mat-drawer #drawer position="end" [mode]="'over'">
+<app-header
+(toggleDrawerEmmit)="drawer.toggle()"
+(logoutEmmit)="onLogoutHandler()"
+></app-header>
+<mat-drawer-container class="example-container" [hasBackdrop]="false">
+  <mat-drawer #drawer position="start" [mode]="'side'">
     <app-drawer></app-drawer>
   </mat-drawer>
   <mat-drawer-content>
-    <app-header
-      (toggleDrawerEmmit)="drawer.toggle()"
-      (logoutEmmit)="onLogoutHandler()"
-    ></app-header>
+ 
     <section role="main" class="page-container" id="page-container">
       <app-left-nav-bar></app-left-nav-bar>
       <section class="body-container">

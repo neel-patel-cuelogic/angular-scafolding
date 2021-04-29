@@ -21,6 +21,14 @@
     input:-webkit-autofill {
         background-color:transparent !important;
     }
+    button{
+      width: 30px !important;
+      height: 30px !important;
+      @include breakpoint(below-1600){
+        width: 24px !important;
+        height: 24px !important;
+      }
+    }
     .mat-icon{
       &.search-icon{
         svg{

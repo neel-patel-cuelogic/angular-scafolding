@@ -1,40 +1,43 @@
 <section class="container-fluid pt-4">
   <div class="d-flex justify-content-between align-items-center">
     <h3 class="mat-h2 m-0">User List</h3>
-    <form class="filter-section d-flex align-items-center">
-      <mat-form-field appearance="outline" class="custom-input">
-        <mat-label>Filter</mat-label>
-        <input
-          matInput
-          [(ngModel)]="filterText"
-          [ngModelOptions]="{ standalone: true }"
-          (keyup)="applyFilter($event.target.value)"
-        />
-        <button
-          mat-icon-button
-          matSuffix
-          *ngIf="filterText"
-          (click)="applyFilter('')"
-        >
-          <mat-icon>close</mat-icon>
-        </button>
-        <mat-icon
-          svgIcon="search"
-          color="primary"
-          matSuffix
-          *ngIf="!filterText"
-        ></mat-icon>
-      </mat-form-field>
-    </form>
-    <button
-      mat-flat-button
-      class="custom-button ml-3"
-      color="primary"
-      (click)="onUserGenerate()"
-    >
-      <mat-icon svgIcon="users-solid" class="mr-2"></mat-icon>
-      New Request
-    </button>
+	<div class="d-flex align-items-center">
+		<form class="filter-section d-flex align-items-center">
+		<mat-form-field appearance="outline" class="custom-input">
+			<mat-label>Filter</mat-label>
+			<input
+			matInput
+			[(ngModel)]="filterText"
+			[ngModelOptions]="{ standalone: true }"
+			(keyup)="applyFilter($event.target.value)"
+			/>
+			<button
+			mat-icon-button
+			matSuffix
+			*ngIf="filterText"
+			(click)="applyFilter('')"
+			>
+			<mat-icon>close</mat-icon>
+			</button>
+			<mat-icon
+			svgIcon="search"
+			class="search-icon"
+			color="primary"
+			matSuffix
+			*ngIf="!filterText"
+			></mat-icon>
+		</mat-form-field>
+		</form>
+		<button
+		mat-flat-button
+		class="custom-button ml-3"
+		color="primary"
+		(click)="onUserGenerate()"
+		>
+		<mat-icon svgIcon="users-solid" class="mr-2"></mat-icon>
+		New Request
+		</button>
+	</div>
   </div>
 
   <div class="table-wrapper">
