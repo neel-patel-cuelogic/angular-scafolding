@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   public isLoggedIn = false;
   public isSidePanelOpen = false;
   protected _isAdmin = false;
-  protected _isShowPrimaryLoader = false;
+  public isShowPrimaryLoader = false;
   protected _themes = ["primary-theme"];
   protected _currentThemeIndex = 0;
   protected _isDark = false;
@@ -82,7 +82,7 @@ export class AppComponent implements OnInit {
       // console.log($e);
       switch ($e.event) {
         case "togglePrimaryLoader":
-          this.togglePrimaryLoader = $e.data;
+          this.togglePrimaryLoader($e.data);
           break;
         case "addClassToBody":
           this._addCustomClass(document.body, $e.data);
@@ -115,7 +115,8 @@ export class AppComponent implements OnInit {
   }
 
   togglePrimaryLoader(value) {
-    this._isShowPrimaryLoader = value;
+    console.log(value);
+    this.isShowPrimaryLoader = value;
   }
 
   updateTheme() {

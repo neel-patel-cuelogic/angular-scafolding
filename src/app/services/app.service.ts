@@ -8,6 +8,9 @@ export class AppService {
   public isSideOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
+  public widgetLoader: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
 
   constructor() {}
 
@@ -16,7 +19,7 @@ export class AppService {
   }
 
   togglePrimaryLoader(value) {
-    this.onCustomEvent.next({ event: "togglePrimariLoader", data: value });
+    this.onCustomEvent.next({ event: "togglePrimaryLoader", data: value });
   }
 
   setSidePanelStatus(value: boolean) {
