@@ -24,6 +24,9 @@ import { MatBadgeModule } from "@angular/material/badge";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatNotificationService } from "./services/mat-notification.service";
 import { MatPaginatorIntlCustomService } from "./services/mat-paginator-intl-custom.service";
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatListModule} from '@angular/material/list';
+
 
 import {
   MatPaginatorModule,
@@ -62,6 +65,8 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
     MatCheckboxModule,
     MatDividerModule,
     MatSidenavModule,
+    MatToolbarModule,
+    MatListModule,
   ],
   exports: [
     MatButtonModule,
@@ -88,6 +93,8 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
     MatCheckboxModule,
     MatDividerModule,
     MatSidenavModule,
+    MatToolbarModule,
+    MatListModule,
   ],
   providers: [
     {

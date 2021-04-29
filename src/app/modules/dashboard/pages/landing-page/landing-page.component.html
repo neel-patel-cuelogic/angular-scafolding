@@ -1,1 +1,89 @@
-<section class="container-fluid">Landing Page works!</section>
+<section class="container-fluid">
+    <mat-toolbar class="justify-content-between">
+        <mat-nav-list class="breadcrums">
+            <a>
+                Dashboard    
+            </a>
+        </mat-nav-list>
+        <a href="#">Provide your feedback</a>
+    </mat-toolbar>
+    <mat-grid-list cols="1" rowHeight="80px" class="border-bottom mb-3">
+        <mat-grid-tile>
+            <figure class="mat-figure justify-content-between">
+            <mat-form-field class="custom-input">
+                <mat-label>Choose one</mat-label>
+                <mat-select>
+                  <mat-option>Clear</mat-option>
+                  <mat-option value="valid">Valid option</mat-option>
+                  <mat-option value="invalid">Invalid option</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="custom-input">
+                <mat-label>Choose one</mat-label>
+                <mat-select>
+                  <mat-option>Clear</mat-option>
+                  <mat-option value="valid">Valid option</mat-option>
+                  <mat-option value="invalid">Invalid option</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="custom-input">
+                <mat-label>Choose one</mat-label>
+                <mat-select>
+                  <mat-option>Clear</mat-option>
+                  <mat-option value="valid">Valid option</mat-option>
+                  <mat-option value="invalid">Invalid option</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field class="custom-input">
+                <mat-label>Choose one</mat-label>
+                <mat-select>
+                  <mat-option>Clear</mat-option>
+                  <mat-option value="valid">Valid option</mat-option>
+                  <mat-option value="invalid">Invalid option</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div>
+            <button mat-flat-button class="custom-button mr-2" color="primary">
+               Apply
+              </button>
+              <a href="#" mat-button class="link">Clear all</a>
+            </div>
+            <div class="border-left">
+              <a href="#" mat-button class="link">More Filters <mat-icon class="ml-1"> filter_list</mat-icon> </a>
+            </div>
+            </figure>
+        </mat-grid-tile>
+    </mat-grid-list>
+      <mat-grid-list gutterSize="20" cols="12" rowHeight="100px">
+        <mat-grid-tile colspan="9" rowspan="1">
+            <mat-grid-list gutterSize="15" cols="12" [ngStyle]="{width:'100%',height:'100%'}" >
+                <mat-grid-tile colspan="4" rowspan="1" [ngStyle]="{background:'lightgreen'}">
+                    <mat-card class="w-100 h-100">
+                        <h2>40</h2>
+                    </mat-card>
+                </mat-grid-tile>
+                <mat-grid-tile colspan="8" rowspan="1" [ngStyle]="{background:'red'}">1</mat-grid-tile>
+            </mat-grid-list>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="3" rowspan="1" [ngStyle]="{background:'blue'}">
+            <span>Observations</span>
+        </mat-grid-tile>
+      </mat-grid-list>
+      
+
+    <mat-grid-list cols="2" [gutterSize]="'10px'">
+        <mat-grid-tile>
+            <mat-card class="w-100 h-100">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia distinctio est voluptate obcaecati, veritatis maiores aliquid doloremque consectetur fuga assumenda expedita quam voluptatum ad labore omnis eos, laborum voluptas dicta.</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia distinctio est voluptate obcaecati, veritatis maiores aliquid doloremque consectetur fuga assumenda expedita quam voluptatum ad labore omnis eos, laborum voluptas dicta.</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia distinctio est voluptate obcaecati, veritatis maiores aliquid doloremque consectetur fuga assumenda expedita quam voluptatum ad labore omnis eos, laborum voluptas dicta.</p>
+
+            </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-card class="w-100 h-100">
+
+            </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+</section>
