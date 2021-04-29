@@ -32,14 +32,15 @@ export class UserDialogBoxComponent implements OnInit {
     );
     this.errorMsg = data.errorMsg;
     this.minStartDate = currentDate;
-    if (data.isUpdate) {
-      if (currentDate > user.accessStartDate) {
-        this.minStartDate = user.accessStartDate;
-      }
+    if (data.isUpdate && currentDate > user.accessStartDate) {
+      this.minStartDate = user.accessStartDate;
     }
     this.userForm = formBuilder.group(
       {
-        clientName: [user.clientName || "", Validators.required],
+        clientName: [
+          user.clientName || "",
+          [Validators.required, Validators.email],
+        ],
         requesterName: [user.requesterName || "", Validators.required],
         accessStartDate: [
           user.accessStartDate || currentDate,

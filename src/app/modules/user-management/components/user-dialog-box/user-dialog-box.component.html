@@ -6,8 +6,8 @@
     </h2>
     <button mat-icon-button mat-dialog-close><mat-icon>close</mat-icon></button>
   </div>
-  <mat-dialog-content>
-    <form class="" [formGroup]="userForm">
+  <form class="" [formGroup]="userForm" (submit)="onUserSave()">
+    <mat-dialog-content>
       <p class="text-danger" *ngIf="errorMsg !== ''">{{ errorMsg }}</p>
       <div class="row">
         <div class="col-6">
@@ -19,7 +19,11 @@
               autocomplete="off"
               required
             />
-            <mat-error>Enter client name</mat-error>
+            <mat-error
+              *ngIf="userForm.controls.clientName.hasError('required')"
+            >
+              Enter client name
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="col-6">
@@ -29,8 +33,13 @@
               matInput
               formControlName="requesterName"
               autocomplete="off"
+              required
             />
-            <mat-error>Enter client name</mat-error>
+            <mat-error
+              *ngIf="userForm.controls.requesterName.hasError('required')"
+            >
+              Enter client name
+            </mat-error>
           </mat-form-field>
         </div>
 
@@ -43,6 +52,7 @@
               autocomplete="off"
               formControlName="accessStartDate"
               [matDatepicker]="accessStartDate"
+              required
               disabled
             />
             <mat-datepicker-toggle
@@ -50,18 +60,17 @@
               [for]="accessStartDate"
             ></mat-datepicker-toggle>
             <mat-datepicker #accessStartDate disabled="false"></mat-datepicker>
-            <mat-error>
-              <p
-                class="text-danger"
-                *ngIf="userForm.controls.accessStartDate.invalid"
-              >
-                <span
-                  *ngIf="
-                    userForm.controls.accessStartDate.errors.matDatepickerMin
-                  "
-                  >Please select startdate as current or greater.</span
-                >
-              </p>
+            <mat-error
+              *ngIf="userForm.controls.accessStartDate.hasError('required')"
+            >
+              Enter start date
+            </mat-error>
+            <mat-error
+              *ngIf="
+                userForm.controls.accessStartDate.hasError('matDatepickerMin')
+              "
+            >
+              Please select startdate as current or greater.
             </mat-error>
           </mat-form-field>
         </div>
@@ -72,9 +81,9 @@
               matInput
               [min]="userForm.controls.accessStartDate.value || minStartDate"
               [matDatepicker]="accessEndDate"
-              [min]="minStartDate"
               autocomplete="off"
               formControlName="accessEndDate"
+              required
               disabled
             />
             <mat-datepicker-toggle
@@ -82,26 +91,33 @@
               [for]="accessEndDate"
             ></mat-datepicker-toggle>
             <mat-datepicker #accessEndDate disabled="false"></mat-datepicker>
-            <mat-error>
-              <p
-                class="text-danger"
-                *ngIf="userForm.controls.accessEndDate.invalid"
-              >
-                <span
-                  *ngIf="
-                    userForm.controls.accessEndDate.errors.matDatepickerMin
-                  "
-                  >Please select end-date grater then start Date.</span
-                >
-              </p>
+            <mat-error
+              *ngIf="userForm.controls.accessEndDate.hasError('required')"
+            >
+              Enter end date
+            </mat-error>
+            <mat-error
+              *ngIf="
+                userForm.controls.accessEndDate.hasError('matDatepickerMin')
+              "
+            >
+              Please select end-date grater then start Date.
             </mat-error>
           </mat-form-field>
         </div>
         <div class="col-12 form-group">
           <mat-form-field class="custom-input custom-textarea">
             <mat-label>Access Reason</mat-label>
-            <textarea matInput formControlName="accessReason"></textarea>
-            <mat-error>Enter access reason</mat-error>
+            <textarea
+              matInput
+              formControlName="accessReason"
+              required
+            ></textarea>
+            <mat-error
+              *ngIf="userForm.controls.accessReason.hasError('required')"
+            >
+              Enter access reason
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="col-12 switch-toggle" *ngIf="data.isUpdate">
@@ -137,19 +153,14 @@
           </li>
         </ul>
       </div>
-    </form>
-  </mat-dialog-content>
-  <mat-dialog-actions>
-    <div class="col-12 form-group text-center pt-4 m-0">
-      <button
-        class="btn"
-        type="submit"
-        (click)="onUserSave()"
-        *ngIf="showSubmitButton"
-      >
-        <span *ngIf="!data.isUpdate">Generate Code</span
-        ><span *ngIf="data.isUpdate">Update Details</span>
-      </button>
-    </div>
-  </mat-dialog-actions>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <div class="col-12 form-group text-center pt-4 m-0">
+        <button class="btn" type="submit" *ngIf="showSubmitButton">
+          <span *ngIf="!data.isUpdate">Generate Code</span
+          ><span *ngIf="data.isUpdate">Update Details</span>
+        </button>
+      </div>
+    </mat-dialog-actions>
+  </form>
 </div>
