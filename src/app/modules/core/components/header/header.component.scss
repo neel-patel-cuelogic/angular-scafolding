@@ -165,36 +165,35 @@
   $extra-color-1: map-get($theme, extra-color-1);
 
   .header {
-    width: 100%;
     background-color: mat-color($extra-color-1, custom-default);
     position: fixed;
     top: 0;
-    height: 60px;
+    // height: 60px;
     color: mat-color($primary, default-contrast);
     z-index: 1030;
     // box-shadow: 0 3px 6px rgba($color: $black, $alpha: 0.15);
-    .inner-header {
-      height: 60px;
-      position: fixed;
-      width: 100%;
-      top: 0;
-      left: 0;
-      .container-fluid {
-        padding: 0 30px;
-      }
-    }
-    .inner-logo {
-      max-width: 55px;
-      text-align: center;
-      height: 100%;
-      padding-top: 7px;
-      a {
-        max-width: 38px;
-      }
-      span {
-        line-height: 1;
-        color: $white;
-      }
-    }
+    // .inner-header {
+    //   height: 60px;
+    //   position: fixed;
+    //   width: 100%;
+    //   top: 0;
+    //   left: 0;
+    //   .container-fluid {
+    //     padding: 0 30px;
+    //   }
+    // }
+    // .inner-logo {
+    //   max-width: 55px;
+    //   text-align: center;
+    //   height: 100%;
+    //   padding-top: 7px;
+    //   a {
+    //     max-width: 38px;
+    //   }
+    //   span {
+    //     line-height: 1;
+    //     color: $white;
+    //   }
+    // }
   }
 }

@@ -1,11 +1,9 @@
-<mat-drawer-container class="example-container" [hasBackdrop]="true">
+<mat-drawer-container class="example-container" [hasBackdrop]="false">
   <mat-drawer
-    #drawer
-    [(opened)]="isSidePanelOpen"
-    position="end"
-    [mode]="'over'"
-    (opened)="onDrawerOpen()"
-    (closed)="onDrawerClose()"
+    position="start"
+    [mode]="'side'"
+    opened
+    class="position-fixed"
   >
     <app-drawer></app-drawer>
   </mat-drawer>

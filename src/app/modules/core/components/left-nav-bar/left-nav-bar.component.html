@@ -1,4 +1,36 @@
-<div
+
+<mat-sidenav class="left-panel d-flex align-items-center flex-column">
+  <mat-nav-list>
+      <a 
+        data-toggle="tooltip"
+        data-placement="bottom"
+        title="Dashboard"
+        routerLink="/"
+        mat-list-item
+      >
+        <mat-icon>preview</mat-icon> Dashboard
+      </a>
+      <a 
+        data-toggle="tooltip"
+        data-placement="bottom"
+        title="User Management"
+        routerLink="/user-management"
+        mat-list-item
+      >
+        <mat-icon svgIcon="users-solid">person</mat-icon> User Profile
+      </a>
+      <a 
+      data-toggle="tooltip"
+      data-placement="bottom"
+      title="Logout"
+      routerLink="/login"
+      mat-list-item
+      >
+        <mat-icon>logout</mat-icon>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+<!-- <div
   class="left-panel d-flex align-items-center flex-column"
 >
   <ul class="list-unstyled  w-100">
@@ -40,4 +72,4 @@
       </li>
     </ul>
   </div>
-</div>
+</div> -->
