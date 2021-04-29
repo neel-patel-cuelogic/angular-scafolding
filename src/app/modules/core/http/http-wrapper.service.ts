@@ -120,7 +120,7 @@ export class HttpWrapperService {
               observer.complete();
               break;
             case 403:
-              let clientDetails = this._authService.getUser();
+              const clientDetails = this._authService.getUser();
               // let baseRedirectURL = "/login";
               // if (clientDetails.isAdmin) {
               //   baseRedirectURL = "/admin";

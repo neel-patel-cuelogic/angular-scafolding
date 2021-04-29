@@ -50,6 +50,9 @@ export class UserListComponent implements OnInit {
     this._userManagementService
       .getUsersList()
       .pipe(
+        map((val: any) => {
+          return val.hasOwnProperty("data") ? val : { data: val };
+        }),
         map((val: any) =>
           val.data.map((v) => this._userManagementService.parseUserObj(v, true))
         )

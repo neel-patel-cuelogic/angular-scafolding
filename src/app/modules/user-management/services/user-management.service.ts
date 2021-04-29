@@ -44,13 +44,13 @@ export class UserManagementService {
   }
 
   getUsersList(): Observable<Response> {
-    if (environment.production) {
-      return this._httpWrapperService.get(environment.api_url + "/users");
-    } else {
-      return this._httpWrapperService.get(
-        environment.local_url + "/usermanagement/userList.json"
-      );
-    }
+    // if (environment.production) {
+    return this._httpWrapperService.get(environment.api_url + "/users");
+    // } else {
+    //   return this._httpWrapperService.get(
+    //     environment.local_url + "/usermanagement/userList.json"
+    //   );
+    // }
   }
 
   updateUser(user): Observable<Response> {
