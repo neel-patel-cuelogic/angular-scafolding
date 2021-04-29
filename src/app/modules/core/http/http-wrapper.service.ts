@@ -5,6 +5,7 @@ import { Observable, pipe } from "rxjs";
 import { AuthService } from "../auth/auth.service";
 import { AppService } from "src/app/services/app.service";
 import { finalize } from "rxjs/operators";
+import { CustomEventType, NotificationType } from "../../shared/enum/enum";
 
 @Injectable({
   providedIn: "root",
@@ -127,8 +128,9 @@ export class HttpWrapperService {
               this._authService.removeUser();
               if (error.error && error.error.customMessage) {
                 this._appService.onCustomEvent.next({
-                  event: "toastMessage",
+                  event: CustomEventType.SHOW_TOAST_MESSAGE,
                   data: {
+                    type: NotificationType.ERROR,
                     message: error.error.customMessage,
                   },
                 });

@@ -1,5 +1,6 @@
 import { Injectable, EventEmitter } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
+import { CustomEventType } from "../modules/shared/enum/enum";
 @Injectable({
   providedIn: "root",
 })
@@ -19,7 +20,10 @@ export class AppService {
   }
 
   togglePrimaryLoader(value) {
-    this.onCustomEvent.next({ event: "togglePrimaryLoader", data: value });
+    this.onCustomEvent.next({
+      event: CustomEventType.TOGGLE_PRIMARY_LOADER,
+      data: value,
+    });
   }
 
   setSidePanelStatus(value: boolean) {

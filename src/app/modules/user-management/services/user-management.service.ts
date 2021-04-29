@@ -54,12 +54,10 @@ export class UserManagementService {
   }
 
   updateUser(user): Observable<Response> {
-    return of();
-    // return this._httpWrapperService.put(environment.api_url + "/user", user);
+    return this._httpWrapperService.put(environment.api_url + "/user", user);
   }
 
   addUser(user): Observable<Response> {
-    return of();
     return this._httpWrapperService.post(environment.api_url + "/user", user);
   }
 
