@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import * as moment from "moment";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { environment } from "src/environments/environment";
 import { HttpWrapperService } from "../../core/http/http-wrapper.service";
 import { UserStatus } from "../../shared/enum/enum";
@@ -54,10 +54,12 @@ export class UserManagementService {
   }
 
   updateUser(user): Observable<Response> {
-    return this._httpWrapperService.put(environment.api_url + "/user", user);
+    return of();
+    // return this._httpWrapperService.put(environment.api_url + "/user", user);
   }
 
   addUser(user): Observable<Response> {
+    return of();
     return this._httpWrapperService.post(environment.api_url + "/user", user);
   }
 

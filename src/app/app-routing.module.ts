@@ -1,8 +1,15 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-
 const routes: Routes = [
-  { path: "", redirectTo: "/theming-preview", pathMatch: "full" },
+  { path: "", redirectTo: "/dashboard", pathMatch: "full" },
+  {
+    path: "theming-preview",
+    loadChildren: () =>
+      import("./modules/theming-preview/theming-preview.module").then(
+        (m) => m.ThemingPreviewModule
+      ),
+    pathMatch: "full",
+  },
   {
     path: "user-management",
     loadChildren: () =>
@@ -16,7 +23,7 @@ const routes: Routes = [
     loadChildren: () =>
       import("./modules/login/login.module").then((m) => m.LoginModule),
   },
-  { path: "**", redirectTo: "/theming-preview", pathMatch: "full" },
+  { path: "**", redirectTo: "/dashboard", pathMatch: "full" },
 ];
 
 // , canActivate: [LoggedInGuardService]

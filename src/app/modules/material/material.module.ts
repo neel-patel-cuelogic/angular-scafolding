@@ -66,7 +66,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
     MatDividerModule,
     MatSidenavModule,
     MatToolbarModule,
-    MatListModule
+    MatListModule,
   ],
   exports: [
     MatButtonModule,
@@ -94,7 +94,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
     MatDividerModule,
     MatSidenavModule,
     MatToolbarModule,
-    MatListModule
+    MatListModule,
   ],
   providers: [
     {
