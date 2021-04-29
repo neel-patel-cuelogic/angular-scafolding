@@ -1,13 +1,8 @@
 import { Injectable } from "@angular/core";
-import {
-  HttpClient,
-  HttpHeaders,
-  HttpResponse,
-  HttpEventType,
-} from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpEventType } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
-import { AuthService } from "./auth.service";
+import { AuthService } from "../auth/auth.service";
 
 @Injectable({
   providedIn: "root",

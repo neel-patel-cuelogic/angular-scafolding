@@ -1,18 +1,33 @@
-<app-header
-(toggleDrawerEmmit)="drawer.toggle()"
-(logoutEmmit)="onLogoutHandler()"
-></app-header>
-<mat-drawer-container class="example-container" [hasBackdrop]="false">
-  <mat-drawer #drawer position="start" [mode]="'side'">
+<mat-drawer-container class="example-container" [hasBackdrop]="true">
+  <mat-drawer
+    #drawer
+    [(opened)]="isSidePanelOpen"
+    position="end"
+    [mode]="'over'"
+    (opened)="onDrawerOpen()"
+    (closed)="onDrawerClose()"
+  >
     <app-drawer></app-drawer>
   </mat-drawer>
   <mat-drawer-content>
- 
-    <section role="main" class="page-container" id="page-container">
-      <app-left-nav-bar></app-left-nav-bar>
-      <section class="body-container">
+    <app-header
+      *ngIf="isLoggedIn"
+      (toggleDrawerEmmit)="isSidePanelOpen = $event"
+      (logoutEmmit)="onLogoutHandler()"
+    ></app-header>
+    <section
+      role="main"
+      class="page-container"
+      id="page-container"
+      [ngClass]="{ 'page-container-top-padding': isLoggedIn }"
+    >
+      <app-left-nav-bar *ngIf="isLoggedIn"></app-left-nav-bar>
+      <section
+        class="body-container"
+        [ngClass]="{ 'body-container-left-padding': isLoggedIn }"
+      >
         <router-outlet></router-outlet>
-        <app-footer></app-footer>
+        <app-footer *ngIf="isLoggedIn"></app-footer>
       </section>
     </section>
   </mat-drawer-content>

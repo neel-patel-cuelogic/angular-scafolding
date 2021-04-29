@@ -8,10 +8,9 @@ import {
   ViewChild,
 } from "@angular/core";
 import { NavigationEnd, NavigationStart, Router } from "@angular/router";
-import { AuthService } from "./modules/core/services/auth.service";
-import { CookieService } from "./modules/core/services/cookie-wrapper.service";
+import { AuthService } from "./modules/core/auth/auth.service";
 import { MatNotificationService } from "./modules/material/services/mat-notification.service";
-import { SharedService } from "./modules/shared/services/shared.service";
+import { AppService } from "./services/app.service";
 
 @Component({
   selector: "app-root",
@@ -19,9 +18,9 @@ import { SharedService } from "./modules/shared/services/shared.service";
   styleUrls: ["./app.component.scss"],
 })
 export class AppComponent implements OnInit {
-  protected _isLoggedIn = false;
+  public isLoggedIn = false;
+  public isSidePanelOpen = false;
   protected _isAdmin = false;
-  // protected role = "user";
   protected _isShowPrimaryLoader = false;
   protected _themes = ["primary-theme"];
   protected _currentThemeIndex = 0;
@@ -36,31 +35,37 @@ export class AppComponent implements OnInit {
   constructor(
     private _renderer: Renderer2,
     private _router: Router,
-    private _sharedService: SharedService,
+    private _appService: AppService,
     private _authService: AuthService,
-    private _cookieService: CookieService,
     private _notification: MatNotificationService,
     @Inject(DOCUMENT) private document: Document
   ) {
-    this._renderer.addClass(document.body, this.theme);
-    this._renderer.addClass(document.body, this._isDark ? "dark" : "light");
+    this._addCustomClass(document.body, this.theme);
+    this._addCustomClass(document.body, this._isDark ? "dark" : "light");
 
     this._authService.onUserInfoUpate.subscribe((data) => {
       if (data) {
-        this._renderer.removeClass(this.document.body, "not-logedin");
         this._isAdmin = data.isAdmin;
-        this._isLoggedIn = true;
+        this.isLoggedIn = true;
       } else {
-        this._renderer.addClass(this.document.body, "not-logedin");
         this._isAdmin = false;
-        this._isLoggedIn = false;
+        this.isLoggedIn = true;
       }
     });
   }
 
   ngOnInit() {
+    this._appService.isSideOpen.subscribe({
+      complete: null,
+      error: null,
+      next: (v) => {
+        this.isSidePanelOpen = v;
+      },
+    });
+
     this._router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
+        this.isSidePanelOpen = false;
         // if (event.url === "/login") {
         //   this.role = "user";
         // } else if (event.url === "/admin/login") {
@@ -73,17 +78,17 @@ export class AppComponent implements OnInit {
       }
     });
 
-    this._sharedService.onCustomEvent.subscribe(($e) => {
+    this._appService.onCustomEvent.subscribe(($e) => {
       // console.log($e);
       switch ($e.event) {
-        case "togglePrimariLoader":
+        case "togglePrimaryLoader":
           this.togglePrimaryLoader = $e.data;
           break;
         case "addClassToBody":
-          this._renderer.addClass(document.body, $e.data);
+          this._addCustomClass(document.body, $e.data);
           break;
         case "removeClassToBody":
-          this._renderer.removeClass(document.body, $e.data);
+          this._removeCustomClass(document.body, $e.data);
           break;
         case "toastMessage":
           switch ($e.data.panelClass) {
@@ -102,22 +107,26 @@ export class AppComponent implements OnInit {
     });
   }
 
+  onDrawerOpen() {
+    this._appService.setSidePanelStatus(true);
+  }
+  onDrawerClose() {
+    this._appService.setSidePanelStatus(false);
+  }
+
   togglePrimaryLoader(value) {
     this._isShowPrimaryLoader = value;
   }
 
   updateTheme() {
-    this._renderer.removeClass(document.body, this._isDark ? "light" : "dark");
-    this._renderer.addClass(document.body, this._isDark ? "dark" : "light");
+    this._removeCustomClass(document.body, this._isDark ? "light" : "dark");
+    this._addCustomClass(document.body, this._isDark ? "dark" : "light");
   }
 
-  onLogoutHandler() {
-    this._authService.removeUser();
-    this._cookieService.clearCloudfrontCookies();
-    if (this._isAdmin) {
-      this._router.navigate(["admin/login"]);
-    } else {
-      this._router.navigate(["login"]);
-    }
+  private _addCustomClass(el, className) {
+    this._renderer.addClass(el, className);
+  }
+  private _removeCustomClass(el, className) {
+    this._renderer.removeClass(el, className);
   }
 }

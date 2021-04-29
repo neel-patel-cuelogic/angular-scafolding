@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import * as moment from "moment";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
-import { HttpWrapperService } from "../../core/services/http-wrapper.service";
+import { HttpWrapperService } from "../../core/http/http-wrapper.service";
 import { UserStatus } from "../../shared/enum/enum";
 import { User } from "../model/user";
 

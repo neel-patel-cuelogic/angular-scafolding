@@ -1,17 +1,18 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
+import { CookieService } from "./cookie.service";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AuthService {
-
-  // tslint:disable-next-line: variable-name
   private _user: any = null;
-  private onUserInfoUpateSub: BehaviorSubject<any> = new BehaviorSubject(this.getUser());
+  private onUserInfoUpateSub: BehaviorSubject<any> = new BehaviorSubject(
+    this.getUser()
+  );
   public onUserInfoUpate: any = null;
 
-  constructor() {
+  constructor(private _cookieService: CookieService) {
     let user: any = this.getUserFromLocalStorage();
     if (user) {
       user = JSON.parse(window.atob(user));
@@ -20,25 +21,27 @@ export class AuthService {
       }
     }
     this.onUserInfoUpate = this.onUserInfoUpateSub.asObservable();
-   }
-
+  }
 
   public setUser(user) {
     this._user = {
       id: user.id,
       name: user.name,
       isAdmin: user.isAdmin || false,
-      token: user.token
+      token: user.token,
     };
     if (user.isAdmin) {
-      localStorage.setItem('user', window.btoa(JSON.stringify(this._user)));
+      localStorage.setItem("user", window.btoa(JSON.stringify(this._user)));
     }
-    this.onUserInfoUpateSub.next({...this._user});
+
+    // TODO: set cookieData
+    // this._cookieService.setCloudFrontCookie();
+    this.onUserInfoUpateSub.next({ ...this._user });
   }
 
   public getUser() {
     if (this._user) {
-      return {...this._user};
+      return { ...this._user };
     } else {
       return null;
     }
@@ -56,17 +59,18 @@ export class AuthService {
     if (this._user) {
       return this._user.token;
     } else {
-      return '';
+      return "";
     }
   }
 
   public removeUser() {
     this._user = null;
-    localStorage.removeItem('user');
+    localStorage.removeItem("user");
+    this._cookieService.clearCloudfrontCookies();
     this.onUserInfoUpateSub.next(null);
   }
 
   public getUserFromLocalStorage() {
-    return localStorage.getItem('user');
+    return localStorage.getItem("user");
   }
 }

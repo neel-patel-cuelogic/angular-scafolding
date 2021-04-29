@@ -5,23 +5,23 @@
       Primary Button
     </button>
     <button mat-flat-button class="custom-button" color="primary">
-      <mat-icon>mic</mat-icon> 
+      <mat-icon>mic</mat-icon>
       Icon Button
     </button>
     <button mat-flat-button class="default-button" color="primary">
       Icon Button
     </button>
     <a href="#" mat-button class="link">Link</a>
-    <a href="#" mat-button class="link"><mat-icon>mic</mat-icon>  Link</a>
-    <br>
-    <br>
+    <a href="#" mat-button class="link"><mat-icon>mic</mat-icon> Link</a>
+    <br />
+    <br />
     <h2 class="mat-h2">custom fields</h2>
-    <mat-form-field class="custom-input" appearance="outline">
+    <mat-form-field class="custom-input">
       <mat-label>Clearable input</mat-label>
       <input matInput type="text" />
     </mat-form-field>
-    <br>
-    <mat-form-field appearance="outline" class="custom-input">
+    <br />
+    <mat-form-field class="custom-input">
       <mat-label>Choose one</mat-label>
       <mat-select>
         <mat-option>Clear</mat-option>
@@ -31,24 +31,24 @@
       <mat-hint>Errors appear instantly!</mat-hint>
       <mat-error>You must make a selection</mat-error>
     </mat-form-field>
-    <br>
-    <mat-form-field appearance="outline" class="custom-input">
+    <br />
+    <mat-form-field class="custom-input">
       <mat-label>Legacy form field</mat-label>
-      <input matInput placeholder="Placeholder">
-      <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+      <input matInput placeholder="Placeholder" />
+      <mat-icon matSuffix></mat-icon>
       <mat-hint>Hint</mat-hint>
     </mat-form-field>
-    <br>
-    <mat-form-field class="custom-input custom-textarea" appearance="outline">
+    <br />
+    <mat-form-field class="custom-input custom-textarea">
       <mat-label>Leave a comment</mat-label>
       <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
     </mat-form-field>
-    <br>
-    <br>
+    <br />
+    <br />
     <div class="d-block custom-checkbox mt-2">
       <mat-checkbox class="example-margin">Checked</mat-checkbox>
-      <br>
-      <br>
+      <br />
+      <br />
       <!-- <input type="checkbox" checked="checked" />
       <label>checkbox</label> -->
 
@@ -56,13 +56,11 @@
         <mat-radio-button value="1">Option 1</mat-radio-button>
         <!-- <mat-radio-button value="2">Option 2</mat-radio-button> -->
       </mat-radio-group>
-      <br>
-      <br>
+      <br />
+      <br />
       <mat-slide-toggle class="example-margin"> Slide me! </mat-slide-toggle>
     </div>
   </div>
-
-
 
   <div class="container-fluid pt-5 mt-5">
     <!-- <div class="d-block">
@@ -101,7 +99,7 @@
         <mat-error> Please enter a valid email address </mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field>
         <mat-label>Choose one</mat-label>
         <mat-select>
           <mat-option>Clear</mat-option>
@@ -112,7 +110,7 @@
         <mat-error>You must make a selection</mat-error>
       </mat-form-field>
 
-      <mat-form-field color="accent" appearance="fill">
+      <mat-form-field color="accent">
         <mat-label>Inherited calendar color</mat-label>
         <input matInput [matDatepicker]="picker1" />
         <mat-datepicker-toggle
@@ -192,7 +190,7 @@
       <button mat-menu-item disabled>Velociraptor</button>
     </mat-menu>
 
-    <br>
+    <br />
     <mat-card class="example-card" style="width: 350px">
       <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
@@ -216,8 +214,8 @@
         <button mat-button>SHARE</button>
       </mat-card-actions>
     </mat-card>
-    <br>
-    <br>
+    <br />
+    <br />
     <div class="d-block mt-5">
       <p>
         <span matBadge="4" matBadgeOverlap="false">Text with a badge</span>
