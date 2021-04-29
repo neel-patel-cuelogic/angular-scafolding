@@ -16,12 +16,12 @@
     <br />
     <br />
     <h2 class="mat-h2">custom fields</h2>
-    <mat-form-field class="custom-input" appearance="outline">
+    <mat-form-field class="custom-input">
       <mat-label>Clearable input</mat-label>
       <input matInput type="text" />
     </mat-form-field>
     <br />
-    <mat-form-field appearance="outline" class="custom-input">
+    <mat-form-field class="custom-input">
       <mat-label>Choose one</mat-label>
       <mat-select>
         <mat-option>Clear</mat-option>
@@ -32,14 +32,14 @@
       <mat-error>You must make a selection</mat-error>
     </mat-form-field>
     <br />
-    <mat-form-field appearance="outline" class="custom-input">
+    <mat-form-field class="custom-input">
       <mat-label>Legacy form field</mat-label>
       <input matInput placeholder="Placeholder" />
       <mat-icon matSuffix></mat-icon>
       <mat-hint>Hint</mat-hint>
     </mat-form-field>
     <br />
-    <mat-form-field class="custom-input custom-textarea" appearance="outline">
+    <mat-form-field class="custom-input custom-textarea">
       <mat-label>Leave a comment</mat-label>
       <textarea matInput placeholder="Ex. It makes me feel..."></textarea>
     </mat-form-field>
@@ -99,7 +99,7 @@
         <mat-error> Please enter a valid email address </mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field>
         <mat-label>Choose one</mat-label>
         <mat-select>
           <mat-option>Clear</mat-option>
@@ -110,7 +110,7 @@
         <mat-error>You must make a selection</mat-error>
       </mat-form-field>
 
-      <mat-form-field color="accent" appearance="fill">
+      <mat-form-field color="accent">
         <mat-label>Inherited calendar color</mat-label>
         <input matInput [matDatepicker]="picker1" />
         <mat-datepicker-toggle

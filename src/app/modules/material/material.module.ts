@@ -33,6 +33,7 @@ import {
 import { MatIconRegistry } from "@angular/material/icon";
 import { DomSanitizer } from "@angular/platform-browser";
 import icons from "./icons";
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
 
 @NgModule({
   declarations: [],
@@ -89,6 +90,10 @@ import icons from "./icons";
     MatSidenavModule,
   ],
   providers: [
+    {
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+      useValue: { appearance: "outline" },
+    },
     { provide: MatPaginatorIntl, useClass: MatPaginatorIntlCustomService },
     MatNotificationService,
   ],

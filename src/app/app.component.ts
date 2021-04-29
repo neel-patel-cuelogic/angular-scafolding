@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
         this.isLoggedIn = true;
       } else {
         this._isAdmin = false;
-        this.isLoggedIn = false;
+        this.isLoggedIn = true;
       }
     });
   }
