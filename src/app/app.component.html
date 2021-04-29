@@ -1,4 +1,5 @@
-<mat-drawer-container class="example-container" [hasBackdrop]="false">
+<app-primary-loader *ngIf="isShowPrimaryLoader"></app-primary-loader>
+<mat-drawer-container class="example-container" [hasBackdrop]="true">
   <mat-drawer
     position="start"
     [mode]="'side'"
