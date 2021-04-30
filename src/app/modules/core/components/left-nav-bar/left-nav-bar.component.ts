@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { first } from "rxjs/operators";
 import { AppService } from "src/app/services/app.service";
 import {
   animateText,
@@ -19,17 +20,22 @@ export class LeftNavBarComponent implements OnInit {
   constructor(private _appService: AppService) {}
 
   ngOnInit(): void {
-    this._appService.isLeftSidePanelOpen$.subscribe((v: boolean) => {
-      this.panelState = v;
-      setTimeout(() => {
-        this.menuText = v;
-      }, 200);
-      console.log(this.panelState);
-    });
+    this._appService.isLeftSidePanelOpen$
+      .pipe(first())
+      .subscribe((v: boolean) => {
+        this.panelState = v;
+        setTimeout(() => {
+          this.menuText = this.panelState;
+        }, 200);
+        console.log(this.panelState);
+      });
   }
 
   togglePanel() {
     this.panelState = !this.panelState;
+    setTimeout(() => {
+      this.menuText = this.panelState;
+    }, 200);
     this.toggleLeftSidePanelStateEmmit.emit(this.panelState);
   }
 }
