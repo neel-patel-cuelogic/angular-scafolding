@@ -24,7 +24,6 @@ import { AppService } from "./services/app.service";
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
-  animations: [onMainContentChange],
 })
 export class AppComponent implements OnInit {
   protected _isAdmin = false;
@@ -64,6 +63,13 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._appService.isLeftSidePanelOpen$.subscribe({
+      complete: null,
+      error: null,
+      next: (v) => {
+        this.isLeftSidePanelOpen = v;
+      },
+    });
     this._authService.onUserInfoUpate$.subscribe((data) => {
       if (data) {
         this._isAdmin = data.isAdmin;
@@ -71,14 +77,8 @@ export class AppComponent implements OnInit {
       } else {
         this._isAdmin = false;
         this.isLoggedIn = true;
+        // this.isLeftSidePanelOpen = false;
       }
-    });
-    this._appService.isLeftSidePanelOpen$.subscribe({
-      complete: null,
-      error: null,
-      next: (v) => {
-        this.isLeftSidePanelOpen = v;
-      },
     });
 
     this._initCustomRouteEvents();

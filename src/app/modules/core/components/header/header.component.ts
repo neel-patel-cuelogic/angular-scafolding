@@ -19,7 +19,7 @@ import { Router } from "@angular/router";
 export class HeaderComponent implements OnInit {
   public isDrawerOpen: boolean;
   @Input() isShowDrawerHandle: boolean = false;
-  @Output() toggleDrawerEmmit: EventEmitter<any> = new EventEmitter<any>();
+  @Output() toggleDrawerStateEmmit: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private _authService: AuthService,
@@ -36,7 +36,7 @@ export class HeaderComponent implements OnInit {
 
   onToggleDrawerClick() {
     this.isDrawerOpen = !this.isDrawerOpen;
-    this.toggleDrawerEmmit.emit(this.isDrawerOpen);
+    this.toggleDrawerStateEmmit.emit(this.isDrawerOpen);
   }
 
   logout() {

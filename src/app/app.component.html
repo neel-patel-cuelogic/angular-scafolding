@@ -12,34 +12,38 @@
     <app-drawer></app-drawer>
   </mat-drawer>
   <mat-drawer-content>
-    <section
-      class="left-panel-container h-100pc position-fixed"
-      *ngIf="isLoggedIn"
-    >
-      <app-left-nav-bar
-        (toggleLeftSidePanelStateEmmit)="toggleLeftSidePanelHandler($event)"
-      ></app-left-nav-bar>
-    </section>
-
-    <!-- [ngClass]="{ 'app-left-padding': isLoggedIn }" -->
-    <section
-      role="main"
-      class="page-container"
-      id="page-container"
-      [@onMainContentChange]="isLeftSidePanelOpen ? 'open' : 'close'"
-    >
-      <app-header
+    <mat-sidenav-container class="left-panel-container">
+      <mat-sidenav
         *ngIf="isLoggedIn"
-        (toggleDrawerEmmit)="isDrawerOpen = $event"
-        (logoutEmmit)="onLogoutHandler()"
-      ></app-header>
-      <section
-        class="body-container"
-        [ngClass]="{ 'app-top-padding': isLoggedIn }"
+        class="custom-sidenav"
+        #sidenav
+        [fixedInViewport]="false"
+        [position]="DrawerPosition.START"
+        [mode]="DrawerMode.SIDE"
+        [opened]="isLeftSidePanelOpen"
+        (opened)="onLeftSidePanelOpen()"
+        (closed)="onLeftSidePanelClose()"
       >
-        <router-outlet></router-outlet>
-        <app-footer *ngIf="isLoggedIn"></app-footer>
-      </section>
-    </section>
+        <app-left-nav-bar
+          (toggleLeftSidePanelStateEmmit)="isLeftSidePanelOpen = $event"
+        ></app-left-nav-bar>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <app-header
+          *ngIf="isLoggedIn"
+          (toggleDrawerStateEmmit)="isDrawerOpen = $event"
+          (logoutEmmit)="onLogoutHandler()"
+        ></app-header>
+        <section role="main" class="page-container" id="page-container">
+          <section
+            class="body-container"
+            [ngClass]="{ 'app-top-padding': isLoggedIn }"
+          >
+            <router-outlet></router-outlet>
+            <app-footer *ngIf="isLoggedIn"></app-footer>
+          </section>
+        </section>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
   </mat-drawer-content>
 </mat-drawer-container>

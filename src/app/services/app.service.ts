@@ -7,7 +7,7 @@ import { CustomEventType } from "../modules/shared/enum/enum";
 export class AppService {
   public onCustomEvent: EventEmitter<any> = new EventEmitter<any>();
   public isLeftSidePanelOpen$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
-    false
+    true
   );
   public isDrawerOpen$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false

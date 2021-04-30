@@ -1,11 +1,4 @@
-<div
-  class="sidenav-container"
-  [@onLeftSidePanelChange]="panelState ? 'open' : 'close'"
->
-  <button mat-icon-button (click)="togglePanel()">
-    <mat-icon *ngIf="!panelState"> navigate_next </mat-icon>
-    <mat-icon *ngIf="panelState"> navigate_before </mat-icon>
-  </button>
+<div class="sidenav-container">
   <mat-nav-list>
     <a
       href="#"
@@ -16,7 +9,7 @@
       class="nav-link"
     >
       <mat-icon class="material-icons-outlined">home</mat-icon>
-      <span [@animateText]="panelState ? 'show' : 'hide'">Dashboard</span>
+      <span>Dashboard</span>
     </a>
     <a
       href="#"
@@ -27,7 +20,7 @@
       class="nav-link"
     >
       <mat-icon>preview</mat-icon>
-      <span [@animateText]="panelState ? 'show' : 'hide'">Dashboard</span>
+      <span>Dashboard</span>
     </a>
     <a
       href="#"
@@ -38,7 +31,7 @@
       class="nav-link"
     >
       <mat-icon svgIcon="users-solid"></mat-icon>
-      <span [@animateText]="panelState ? 'show' : 'hide'">Dashboard</span>
+      <span>Dashboard</span>
     </a>
     <a
       href="#"
@@ -49,7 +42,7 @@
       class="nav-link"
     >
       <mat-icon> logout </mat-icon>
-      <span [@animateText]="panelState ? 'show' : 'hide'">Dashboard</span>
+      <span>Dashboard</span>
     </a>
   </mat-nav-list>
 </div>
