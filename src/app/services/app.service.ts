@@ -6,10 +6,13 @@ import { CustomEventType } from "../modules/shared/enum/enum";
 })
 export class AppService {
   public onCustomEvent: EventEmitter<any> = new EventEmitter<any>();
-  public isSideOpen: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+  public isLeftSidePanelOpen$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
-  public widgetLoader: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+  public isDrawerOpen$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
+  public widgetLoader$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
     false
   );
 
@@ -26,7 +29,11 @@ export class AppService {
     });
   }
 
-  setSidePanelStatus(value: boolean) {
-    this.isSideOpen.next(value);
+  setLeftSidePanelStatus(value: boolean) {
+    this.isLeftSidePanelOpen$.next(value);
+  }
+
+  setDrawerStatus(value: boolean) {
+    this.isDrawerOpen$.next(value);
   }
 }

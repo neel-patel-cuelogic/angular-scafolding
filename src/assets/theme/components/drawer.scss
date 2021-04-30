@@ -1,0 +1,40 @@
+@import "~@angular/material/theming";
+@import "../utils/mixins";
+
+@mixin mat-drawer-custom-color($config-or-theme) {
+  $config: mat-get-color-config($config-or-theme);
+  $primary: map-get($config, primary);
+  $accent: map-get($config, accent);
+  $warn: map-get($config, warn);
+  $extra-color-1: map-get($config, extra-color-1);
+
+  $background: map-get($config, background);
+  $foreground: map-get($config, foreground);
+
+  $drawer-background-color: mat-color($background, dialog);
+  $drawer-container-background-color: mat-color($background, background);
+  $drawer-push-background-color: mat-color($background, dialog);
+  $drawer-side-border: solid 1px mat-color($foreground, divider);
+
+  @include mat-sidenav-color($config-or-theme);
+
+  .custom-drawer {
+    &.mat-drawer {
+      min-width: 20px;
+      &.mat-sidenav-closed {
+        transform: translate3d(0, 0, 0) !important;
+        visibility: visible !important;
+        min-width: 64px !important;
+        width: 64px !important;
+
+        &.mat-sidenav-content {
+          margin-left: 64px !important;
+        }
+      }
+    }
+  }
+}
+
+@mixin drawer-custom-theme($config-or-theme) {
+  @include mat-drawer-custom-color($config-or-theme);
+}

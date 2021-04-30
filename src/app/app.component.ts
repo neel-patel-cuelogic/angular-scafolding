@@ -7,27 +7,45 @@ import {
   Renderer2,
   ViewChild,
 } from "@angular/core";
+
 import { NavigationEnd, NavigationStart, Router } from "@angular/router";
+import { onMainContentChange } from "./modules/core/animations/left-side-panel-animation";
 import { AuthService } from "./modules/core/auth/auth.service";
 import { MatNotificationService } from "./modules/material/services/mat-notification.service";
-import { CustomEventType, NotificationType } from "./modules/shared/enum/enum";
+import {
+  CustomEventType,
+  DrawerMode,
+  DrawerPosition,
+  NotificationType,
+} from "./modules/shared/enum/enum";
 import { AppService } from "./services/app.service";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
+  animations: [onMainContentChange],
 })
 export class AppComponent implements OnInit {
-  public isLoggedIn = true;
-  public isSidePanelOpen = false;
   protected _isAdmin = false;
-  public isShowPrimaryLoader = false;
   protected _themes = ["primary-theme"];
   protected _currentThemeIndex = 0;
   protected _isDark = false;
 
+  public isLoggedIn = true;
+  public isDrawerOpen = false;
+  public isShowPrimaryLoader = false;
+  public isLeftSidePanelOpen = false;
+
   @ViewChild("drawer") drawer: ElementRef;
+
+  get DrawerMode() {
+    return DrawerMode;
+  }
+
+  get DrawerPosition() {
+    return DrawerPosition;
+  }
 
   get theme(): string {
     return this._themes[this._currentThemeIndex];
@@ -46,7 +64,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._authService.onUserInfoUpate.subscribe((data) => {
+    this._authService.onUserInfoUpate$.subscribe((data) => {
       if (data) {
         this._isAdmin = data.isAdmin;
         this.isLoggedIn = true;
@@ -55,14 +73,59 @@ export class AppComponent implements OnInit {
         this.isLoggedIn = true;
       }
     });
-    // this._appService.isSideOpen.subscribe({
-    //   complete: null,
-    //   error: null,
-    //   next: (v) => {
-    //     this.isSidePanelOpen = v;
-    //   },
-    // });
+    this._appService.isLeftSidePanelOpen$.subscribe({
+      complete: null,
+      error: null,
+      next: (v) => {
+        this.isLeftSidePanelOpen = v;
+      },
+    });
 
+    this._initCustomRouteEvents();
+    this._initCustomEvents();
+  }
+
+  toggleLeftSidePanelHandler(value) {
+    console.log(value);
+    value ? this.onLeftSidePanelOpen() : this.onLeftSidePanelClose();
+  }
+
+  onLeftSidePanelOpen() {
+    this.isLeftSidePanelOpen = true;
+    this._appService.setLeftSidePanelStatus(true);
+  }
+
+  onLeftSidePanelClose() {
+    this.isLeftSidePanelOpen = false;
+    this._appService.setLeftSidePanelStatus(false);
+  }
+
+  onDrawerOpen() {
+    this._appService.setDrawerStatus(true);
+  }
+  onDrawerClose() {
+    this._appService.setDrawerStatus(false);
+  }
+
+  togglePrimaryLoader(value) {
+    setTimeout(() => {
+      this.isShowPrimaryLoader = value;
+    }, 0);
+  }
+
+  updateTheme() {
+    this._removeCustomClass(document.body, this._isDark ? "light" : "dark");
+    this._addCustomClass(document.body, this._isDark ? "dark" : "light");
+  }
+
+  private _addCustomClass(el, className) {
+    this._renderer.addClass(el, className);
+  }
+  private _removeCustomClass(el, className) {
+    this._renderer.removeClass(el, className);
+  }
+
+  private _initCustomRouteEvents() {
     this._router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
         // if (event.url === "/login") {
@@ -74,10 +137,11 @@ export class AppComponent implements OnInit {
 
       if (event instanceof NavigationEnd) {
         document.scrollingElement.scrollTo(0, 0);
-        this.isSidePanelOpen = false;
+        this.isDrawerOpen = false;
       }
     });
-
+  }
+  private _initCustomEvents() {
     this._appService.onCustomEvent.subscribe(($e) => {
       // console.log($e);
       switch ($e.event) {
@@ -105,30 +169,5 @@ export class AppComponent implements OnInit {
           break;
       }
     });
-  }
-
-  onDrawerOpen() {
-    this._appService.setSidePanelStatus(true);
-  }
-  onDrawerClose() {
-    this._appService.setSidePanelStatus(false);
-  }
-
-  togglePrimaryLoader(value) {
-    setTimeout(() => {
-      this.isShowPrimaryLoader = value;
-    }, 0);
-  }
-
-  updateTheme() {
-    this._removeCustomClass(document.body, this._isDark ? "light" : "dark");
-    this._addCustomClass(document.body, this._isDark ? "dark" : "light");
-  }
-
-  private _addCustomClass(el, className) {
-    this._renderer.addClass(el, className);
-  }
-  private _removeCustomClass(el, className) {
-    this._renderer.removeClass(el, className);
   }
 }

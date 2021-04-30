@@ -82,7 +82,7 @@ export class HttpWrapperService {
     if (isShowPrimaryLoader) {
       this._appService.togglePrimaryLoader(true);
     } else {
-      this._appService.widgetLoader.next(true);
+      this._appService.widgetLoader$.next(true);
     }
     // Set spinner at application level end
 
@@ -98,7 +98,7 @@ export class HttpWrapperService {
             if (isShowPrimaryLoader) {
               this._appService.togglePrimaryLoader(false);
             } else {
-              this._appService.widgetLoader.next(false);
+              this._appService.widgetLoader$.next(false);
             }
             observer.next(response);
             observer.complete();
@@ -108,7 +108,7 @@ export class HttpWrapperService {
           if (isShowPrimaryLoader) {
             this._appService.togglePrimaryLoader(false);
           } else {
-            this._appService.widgetLoader.next(false);
+            this._appService.widgetLoader$.next(false);
           }
           switch (error.status) {
             case 400:
@@ -154,7 +154,7 @@ export class HttpWrapperService {
           if (isShowPrimaryLoader) {
             this._appService.togglePrimaryLoader(false);
           } else {
-            this._appService.widgetLoader.next(false);
+            this._appService.widgetLoader$.next(false);
           }
         }
       );

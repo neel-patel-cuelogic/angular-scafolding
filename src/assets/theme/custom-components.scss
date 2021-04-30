@@ -5,6 +5,7 @@
 // @import "./components/select.scss";
 @import "./components/table.scss";
 @import "./components/pagination.scss";
+@import "./components/drawer.scss";
 @mixin custom-component-theming($theme) {
   @include header-theme($theme);
   @include nav-bar-theme($theme);
@@ -12,6 +13,6 @@
   @include input-custom-theme($theme);
   @include table-custom-theme($theme);
   @include pagination-custom-theme($theme);
+  @include drawer-custom-theme($theme);
   /** add any other theming mixins from custom components here. */
 }
-

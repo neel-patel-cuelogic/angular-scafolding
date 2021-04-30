@@ -1,29 +1,41 @@
 <app-primary-loader *ngIf="isShowPrimaryLoader"></app-primary-loader>
-<mat-drawer-container class="example-container" [hasBackdrop]="true">
+<mat-drawer-container class="example-container" [hasBackdrop]="true" autosize>
   <mat-drawer
-    position="start"
-    [mode]="'side'"
-    opened
-    class="position-fixed"
+    #drawer
+    class="custom-drawer"
+    [position]="DrawerPosition.START"
+    [mode]="DrawerMode.SIDE"
+    [opened]="isDrawerOpen"
+    (opened)="onDrawerOpen()"
+    (closed)="onDrawerClose()"
   >
     <app-drawer></app-drawer>
   </mat-drawer>
   <mat-drawer-content>
-    <app-header
+    <section
+      class="left-panel-container h-100pc position-fixed"
       *ngIf="isLoggedIn"
-      (toggleDrawerEmmit)="isSidePanelOpen = $event"
-      (logoutEmmit)="onLogoutHandler()"
-    ></app-header>
+    >
+      <app-left-nav-bar
+        (toggleLeftSidePanelStateEmmit)="toggleLeftSidePanelHandler($event)"
+      ></app-left-nav-bar>
+    </section>
+
+    <!-- [ngClass]="{ 'app-left-padding': isLoggedIn }" -->
     <section
       role="main"
       class="page-container"
       id="page-container"
-      [ngClass]="{ 'page-container-top-padding': isLoggedIn }"
+      [@onMainContentChange]="isLeftSidePanelOpen ? 'open' : 'close'"
     >
-      <app-left-nav-bar *ngIf="isLoggedIn"></app-left-nav-bar>
+      <app-header
+        *ngIf="isLoggedIn"
+        (toggleDrawerEmmit)="isDrawerOpen = $event"
+        (logoutEmmit)="onLogoutHandler()"
+      ></app-header>
       <section
         class="body-container"
-        [ngClass]="{ 'body-container-left-padding': isLoggedIn }"
+        [ngClass]="{ 'app-top-padding': isLoggedIn }"
       >
         <router-outlet></router-outlet>
         <app-footer *ngIf="isLoggedIn"></app-footer>

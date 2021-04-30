@@ -1,12 +1,35 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { AppService } from "src/app/services/app.service";
+import {
+  animateText,
+  onLeftSidePanelChange,
+} from "../../animations/left-side-panel-animation";
 
 @Component({
   selector: "app-left-nav-bar",
   templateUrl: "./left-nav-bar.component.html",
   styleUrls: ["./left-nav-bar.component.scss"],
+  animations: [onLeftSidePanelChange, animateText],
 })
 export class LeftNavBarComponent implements OnInit {
-  constructor() {}
+  public panelState: boolean = false;
+  public menuText: boolean = false;
+  @Output()
+  toggleLeftSidePanelStateEmmit: EventEmitter<boolean> = new EventEmitter<boolean>();
+  constructor(private _appService: AppService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this._appService.isLeftSidePanelOpen$.subscribe((v: boolean) => {
+      this.panelState = v;
+      setTimeout(() => {
+        this.menuText = v;
+      }, 200);
+      console.log(this.panelState);
+    });
+  }
+
+  togglePanel() {
+    this.panelState = !this.panelState;
+    this.toggleLeftSidePanelStateEmmit.emit(this.panelState);
+  }
 }

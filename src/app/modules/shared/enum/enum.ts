@@ -4,6 +4,17 @@ export enum UserStatus {
   ACTIVE_B = "Active (Blocked)",
 }
 
+export enum DrawerPosition {
+  START = "start",
+  END = "end",
+}
+
+export enum DrawerMode {
+  SIDE = "side",
+  OVER = "over",
+  PUSH = "push",
+}
+
 export enum CustomEventType {
   TOGGLE_PRIMARY_LOADER = "togglePrimaryLoader",
   ADD_CLASS_TO_BODY = "addClassToBody",

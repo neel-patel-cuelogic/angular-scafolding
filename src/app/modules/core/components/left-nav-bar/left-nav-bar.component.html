@@ -1,52 +1,55 @@
-<!-- <div class="left-panel d-flex align-items-center flex-column">
-  <ul class="list-unstyled w-100">
-    <li>
-      <a
-        href="#"
-        data-toggle="tooltip"
-        data-placement="bottom"
-        title="Dashboard"
-        routerLink="/"
-      >
-        <mat-icon>dashboard</mat-icon>
-      </a>
-    </li>
-    <li>
-      <a
-        href="#"
-        data-toggle="tooltip"
-        data-placement="bottom"
-        title="Theming preview"
-        routerLink="/theming-preview"
-      >
-        <mat-icon>preview</mat-icon>
-      </a>
-    </li>
-    <li>
-      <a
-        href="#"
-        data-toggle="tooltip"
-        data-placement="bottom"
-        title="User Management"
-        routerLink="/user-management"
-      >
-        <mat-icon svgIcon="users-solid"></mat-icon>
-      </a>
-    </li>
-  </ul>
-  <div class="bottom-menu w-100 mt-auto aligin-self-end">
-    <ul class="list-unstyled m-auto w-100">
-      <li>
-        <a
-          href="#"
-          data-toggle="tooltip"
-          data-placement="bottom"
-          title="Logout"
-          routerLink="/login"
-        >
-          <mat-icon> logout </mat-icon>
-        </a>
-      </li>
-    </ul>
-  </div>
-</div> -->
+<div
+  class="sidenav-container"
+  [@onLeftSidePanelChange]="panelState ? 'open' : 'close'"
+>
+  <button mat-icon-button (click)="togglePanel()">
+    <mat-icon *ngIf="!panelState"> navigate_next </mat-icon>
+    <mat-icon *ngIf="panelState"> navigate_before </mat-icon>
+  </button>
+  <mat-nav-list>
+    <a
+      href="#"
+      data-toggle="tooltip"
+      data-placement="bottom"
+      title="Dashboard"
+      routerLink="/"
+      class="nav-link"
+    >
+      <mat-icon class="material-icons-outlined">home</mat-icon>
+      <span [@animateText]="panelState ? 'show' : 'hide'">Dashboard</span>
+    </a>
+    <a
+      href="#"
+      data-toggle="tooltip"
+      data-placement="bottom"
+      title="Theming preview"
+      routerLink="/theming-preview"
+      class="nav-link"
+    >
+      <mat-icon>preview</mat-icon>
+      <span [@animateText]="panelState ? 'show' : 'hide'">Dashboard</span>
+    </a>
+    <a
+      href="#"
+      data-toggle="tooltip"
+      data-placement="bottom"
+      title="User Management"
+      routerLink="/user-management"
+      class="nav-link"
+    >
+      <mat-icon svgIcon="users-solid"></mat-icon>
+      <span [@animateText]="panelState ? 'show' : 'hide'">Dashboard</span>
+    </a>
+    <a
+      href="#"
+      data-toggle="tooltip"
+      data-placement="bottom"
+      title="Logout"
+      routerLink="/login"
+      class="nav-link"
+    >
+      <mat-icon> logout </mat-icon>
+      <span [@animateText]="panelState ? 'show' : 'hide'">Dashboard</span>
+    </a>
+  </mat-nav-list>
+</div>

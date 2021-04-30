@@ -1,40 +1,9 @@
-@import "src/assets/css/variables";
-@import "src/assets/css/mixins";
-
 @mixin nav-bar-theme($theme) {
   // Extract the palettes you need from the theme definition.
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
-
-  // .left-panel {
-  //   max-width: 55px;
-  //   position: fixed;
-  //   width: 100%;
-  //   height: calc(100vh - 60px);
-  //   background-color: mat-color($primary);
-  //   ul {
-  //     padding: 0;
-  //     li {
-  //       list-style: none;
-  //       a {
-  //         color: mat-color($primary, 100);
-  //         padding: 10px 15px;
-  //         min-height: 55px;
-  //         align-items: center;
-  //         display: flex;
-  //         text-decoration: none;
-  //         font-weight: weight(medium);
-  //         text-align: center;
-  //         @include transitionTime(200ms);
-  //         &:hover {
-  //           background-color: mat-color($primary, 900);
-  //         }
-  //       }
-  //     }
-  //   }
-  //   .bottom-menu {
-  //     margin-bottom: 10px;
-  //   }
-  // }
+  .sidenav-container {
+    min-width: 60px;
+  }
 }

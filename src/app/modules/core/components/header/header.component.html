@@ -1,11 +1,18 @@
-<mat-toolbar id="header" class="header justify-content-between">
-  <span>My App</span>
-  <span class="example-spacer"></span>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
-</mat-toolbar>
-
+<div>
+  <mat-toolbar id="header" class="header justify-content-between">
+    <span>My App</span>
+    <span class="example-spacer"></span>
+    <button
+      *ngIf="isShowDrawerHandle"
+      mat-icon-button
+      class="example-icon"
+      aria-label="Example icon-button with menu icon"
+      (click)="onToggleDrawerClick()"
+    >
+      <mat-icon>menu</mat-icon>
+    </button>
+  </mat-toolbar>
+</div>
 <!-- 
 
 <header id="header" class="header">

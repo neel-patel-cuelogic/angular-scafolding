@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { CookieService } from "./cookie.service";
 
 @Injectable({
@@ -7,10 +7,10 @@ import { CookieService } from "./cookie.service";
 })
 export class AuthService {
   private _user: any = null;
-  private onUserInfoUpateSub: BehaviorSubject<any> = new BehaviorSubject(
+  private onUserInfoUpateSub$: BehaviorSubject<any> = new BehaviorSubject(
     this.getUser()
   );
-  public onUserInfoUpate: any = null;
+  public onUserInfoUpate$: Observable<any> = null;
 
   constructor(private _cookieService: CookieService) {
     let user: any = this.getUserFromLocalStorage();
@@ -20,7 +20,7 @@ export class AuthService {
         this.setUser(user);
       }
     }
-    this.onUserInfoUpate = this.onUserInfoUpateSub.asObservable();
+    this.onUserInfoUpate$ = this.onUserInfoUpateSub$.asObservable();
   }
 
   public setUser(user) {
@@ -36,7 +36,7 @@ export class AuthService {
 
     // TODO: set cookieData
     // this._cookieService.setCloudFrontCookie();
-    this.onUserInfoUpateSub.next({ ...this._user });
+    this.onUserInfoUpateSub$.next({ ...this._user });
   }
 
   public getUser() {
@@ -67,7 +67,7 @@ export class AuthService {
     this._user = null;
     localStorage.removeItem("user");
     this._cookieService.clearCloudfrontCookies();
-    this.onUserInfoUpateSub.next(null);
+    this.onUserInfoUpateSub$.next(null);
   }
 
   public getUserFromLocalStorage() {
