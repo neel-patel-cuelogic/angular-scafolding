@@ -23,7 +23,7 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit {
           this.verticalBarChart.resize();
         }
       });
-    this.renderBarGraph();
+    this.verticalBarChart = this.renderBarGraph();
   }
 
   renderBarGraph() {
@@ -57,13 +57,23 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit {
     // append the svg object to the body of the page
     // append a 'group' element to 'svg'
     // moves the 'group' element to the top left margin
-    const svg = d3.selection
-      .select(`#${this.barChartId}`)
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    const svg = this._d3Service.createSvg(
+      this.barChartId,
+      width,
+      height,
+      margin
+    );
 
+    const mainGroup = this._d3Service.createGroup(
+      svg,
+      "mainGroup",
+      ["main-group"],
+      { x: margin.left, y: margin.top }
+    );
+
+    const { resize, heightAspect, widthAspect } = this._d3Service.responsivefy(
+      svg
+    );
     // Scale the range of the data in the domains
     x.domain(
       data.map(function (d) {
@@ -78,7 +88,7 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit {
     ]);
 
     // append the rectangles for the bar chart
-    svg
+    mainGroup
       .selectAll(".bar")
       .data(data)
       .enter()
@@ -96,17 +106,17 @@ export class VerticalBarChartComponent implements OnInit, AfterViewInit {
       });
 
     // add the x Axis
-    svg
+    mainGroup
       .append("g")
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axis.axisBottom(x));
 
     // add the y Axis
-    svg.append("g").call(d3.axis.axisLeft(y));
+    mainGroup.append("g").call(d3.axis.axisLeft(y));
 
     return {
       // updateData,
-      // resize,
+      resize,
     };
   }
 }

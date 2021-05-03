@@ -25,6 +25,26 @@ export class D3Service {
   };
   constructor() {}
 
+  createSvg(svgId, width, height, margin) {
+    return this.d3.selection
+      .select(`#${svgId}`)
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom);
+  }
+
+  createGroup(
+    selector,
+    groupId,
+    classes = [],
+    transform: { x; y } = { x: 0, y: 0 }
+  ) {
+    return selector
+      .attr("id", groupId)
+      .append("g")
+      .attr("classes", classes.join(" "))
+      .style("transform", `translate(${transform.x}px, ${transform.y}px)`);
+  }
+
   responsivefy(svg, isHeightNotToUpdate = false) {
     const container = this.d3.selection.select(svg.node().parentNode);
     const width = parseInt(svg.style("width"), 10);
